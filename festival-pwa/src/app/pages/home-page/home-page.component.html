@@ -2,22 +2,31 @@
   <ion-menu>
     <ion-header>
       <ion-toolbar color="primary">
-        <ion-title>Menu</ion-title>
+          <ion-buttons slot="start">
+              <ion-menu-toggle>
+                <ion-button>
+                  <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>
+                </ion-button>
+              </ion-menu-toggle>
+          </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
     <ion-content>
       <ion-list>
-        <ion-list-header>
-          Navigate
-        </ion-list-header>
         <ion-menu-toggle auto-hide="false">
-          <ion-item button>
-            <ion-icon slot="start" [src]="'home' | icon"></ion-icon>
+          <ion-item button routerLink="">
+            <ion-icon slot="start" name="home"></ion-icon>
             <ion-label>
-              Home
+              Hírek
             </ion-label>
           </ion-item>
+          <ion-item button routerLink="/programs">
+              <ion-icon slot="start" name="paper"></ion-icon>
+              <ion-label>
+                Programok
+              </ion-label>
+            </ion-item>
         </ion-menu-toggle>
       </ion-list>
     </ion-content>
@@ -25,20 +34,41 @@
 
   <ion-page class="ion-page" main>
     <ion-header>
-      <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-          <ion-menu-toggle>
-            <ion-button>
-              <ion-icon slot="icon-only" [src]="'menu' | icon"></ion-icon>
-            </ion-button>
-          </ion-menu-toggle>
-        </ion-buttons>
-        <ion-title>Header</ion-title>
-      </ion-toolbar>
+
+        <ion-toolbar color="primary">
+            <ion-buttons slot="start">
+                <ion-menu-toggle>
+                  <ion-button>
+                    <ion-icon slot="icon-only" name="menu"></ion-icon>
+                  </ion-button>
+                </ion-menu-toggle>
+            </ion-buttons>
+
+
+            <ion-buttons slot="secondary">
+            </ion-buttons>
+
+            <ion-buttons slot="primary">
+              <ion-button>
+                <ion-icon slot="icon-only" name="download"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+
+            <ion-title>Hírek</ion-title>
+          </ion-toolbar>
+
+
     </ion-header>
-    <ion-content padding>
-      <h1>Main Content</h1>
-      <p>Click the icon in the top left to toggle the menu.</p>
+    <ion-content>
+      <app-news-card priority="danger" title="Esős időjárás" content="Kedves VOLTozók! Várhatóan esős esténk lesz, mindenképp hozzatok esőkabátot és öltözzetek melegen! 💦"></app-news-card>
+      <app-news-card title="Program ajánló" moreButton="true" content="Ma este Iron Maiden! 😉 😎 De előtte és utána is sok sok program közül választhattok, koncerteket ..."></app-news-card>
+      <app-news-card priority="danger" title="Szerda sold out" content="A mai nap sold out, ezért kérjük induljatok időben, gyertek minél hamarabb ki a VOLT-ra, hogy zökkenőmentesen történjen a karszalag átvétel és a bejutás is. Várunk titeket nagyon!"></app-news-card>
+      <app-news-card title="Arany élet" content="Aranyélet és ami mögötte van - HOLNAP a Diákhitel kávézóban, 17.30-tól! ..." moreButton="true"></app-news-card>
+      <app-news-card priority="warning" title="Programváltozás" content="A Rudimental DJ Set 2-kor kezdődik! Érezzétek jól magatokat! 😉"></app-news-card>
+
+
+      
+
     </ion-content>
   </ion-page>
 </ion-app>

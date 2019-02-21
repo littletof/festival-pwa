@@ -6,12 +6,16 @@ import { AppComponent } from './app.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { IonicModule } from '@ionic/angular';
 import { IconPipe } from './pipes/icon.pipe';
+import { NewsCardComponent } from './shared/components/news-card/news-card.component';
+import { ProgramsPageComponent } from './pages/programs-page/programs-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
-    IconPipe
+    IconPipe,
+    NewsCardComponent,
+    ProgramsPageComponent
   ],
   imports: [
     BrowserModule,

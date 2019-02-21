@@ -13,9 +13,9 @@ export class HomePageComponent implements OnInit {
   ngOnInit() {
   }
 
-  openFirst() {
+  /*openFirst() {
     this.menu.enable(true, 'first');
     this.menu.open('first');
-  }
+  }*/
 
 }
