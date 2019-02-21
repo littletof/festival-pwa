@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { IconPipe } from './pipes/icon.pipe';
 import { NewsCardComponent } from './shared/components/news-card/news-card.component';
 import { ProgramsPageComponent } from './pages/programs-page/programs-page.component';
+import { ProgramPageComponent } from './pages/program-page/program-page.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { ProgramsPageComponent } from './pages/programs-page/programs-page.compo
     HomePageComponent,
     IconPipe,
     NewsCardComponent,
-    ProgramsPageComponent
+    ProgramsPageComponent,
+    ProgramPageComponent
   ],
   imports: [
     BrowserModule,
