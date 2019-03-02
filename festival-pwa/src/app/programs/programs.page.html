@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Programok</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+
+    <ion-grid>
+        <ion-row>
+          <ion-col size="6" sizeLg="2" *ngFor="let program of programs" style="height:25%">
+
+              <ion-card>                      
+                  <ion-card-content>
+                    <img class="program-image" [src]="program.image || 'https://via.placeholder.com/140x120'">
+
+                    <div class="image-overlay">
+                      <span class="image-overlay-extra-title">Ez egy kis bevezető:</span>
+                      <span class="image-overlay-main-title">
+                        {{program.title}}
+                      </span>
+                      <span>UK</span>
+                    </div>
+                  </ion-card-content>
+              </ion-card>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+</ion-content>
