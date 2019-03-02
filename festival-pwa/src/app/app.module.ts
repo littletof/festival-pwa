@@ -1,31 +1,27 @@
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { RouteReuseStrategy } from '@angular/router';
 
-import { AppRoutingModule } from './app-routing.module';
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+
 import { AppComponent } from './app.component';
-import { HomePageComponent } from './pages/home-page/home-page.component';
-import { IonicModule } from '@ionic/angular';
-import { IconPipe } from './pipes/icon.pipe';
-import { NewsCardComponent } from './shared/components/news-card/news-card.component';
-import { ProgramsPageComponent } from './pages/programs-page/programs-page.component';
-import { ProgramPageComponent } from './pages/program-page/program-page.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomePageComponent,
-    IconPipe,
-    NewsCardComponent,
-    ProgramsPageComponent,
-    ProgramPageComponent
-  ],
+  declarations: [AppComponent],
+  entryComponents: [],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    IonicModule.forRoot()
+    IonicModule.forRoot(),
+    AppRoutingModule
   ],
-  providers: [],
-  bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  providers: [
+    StatusBar,
+    SplashScreen,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+  ],
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
