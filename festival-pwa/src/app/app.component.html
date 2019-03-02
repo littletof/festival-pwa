@@ -1,1 +1,38 @@
-<router-outlet></router-outlet>
+<ion-app>
+  <ion-menu>
+      <ion-header>
+        <ion-toolbar color="primary">
+            <ion-buttons slot="start">
+                <ion-menu-toggle>
+                  <ion-button>
+                    <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>
+                  </ion-button>
+                </ion-menu-toggle>
+            </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content>
+        <ion-list>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerLink="" routerDirection="forward">
+                <ion-icon slot="start" name="home"></ion-icon>
+                <ion-label>
+                Hírek
+                </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerLink="/programs" routerDirection="forward">
+                <ion-icon slot="start" name="paper"></ion-icon>
+                <ion-label>
+                    Programok
+                </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+
+    <ion-router-outlet main></ion-router-outlet>
+</ion-app>
