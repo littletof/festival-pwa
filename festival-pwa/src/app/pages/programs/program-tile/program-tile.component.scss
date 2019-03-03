@@ -1,0 +1,54 @@
+ion-card::ng-deep{
+    margin: 0px;
+   height: 100%;
+}
+ion-card-content::ng-deep{
+    padding: 0px;
+    height: 149px;
+}
+
+.image-overlay{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    min-height: 60px;
+    // background: linear-gradient(transparent, #232323,#232323);
+    // background: linear-gradient(transparent, #000000aa,#000000cc, #000000ee);
+    background: linear-gradient(transparent, #00000070, #00000080, #00000099);
+    padding: 10px;
+    padding-bottom: 5px;
+
+    display: flex;
+    align-items: flex-end;
+}
+
+.image-overlay-bottom {
+    max-width: 100%;
+
+    .image-overlay-nationality {
+        color: white;
+        font-weight: bold;
+        font-size: x-small;
+        padding-left: 5px;
+        text-transform: uppercase;
+    }
+    
+    .image-overlay-main-title{
+        color: white;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+    
+    .image-overlay-extra-title{
+        color: white;
+        font-size: smaller;
+        display: block;
+    }
+}
+
+
+
+.program-image{
+    height: 100%;
+    object-fit: cover;
+}

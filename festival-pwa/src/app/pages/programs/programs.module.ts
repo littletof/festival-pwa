@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { ProgramsPage } from './programs.page';
+import { ProgramTileComponent } from './program-tile/program-tile.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ProgramsPage]
+  declarations: [ProgramsPage, ProgramTileComponent]
 })
 export class ProgramsPageModule {}

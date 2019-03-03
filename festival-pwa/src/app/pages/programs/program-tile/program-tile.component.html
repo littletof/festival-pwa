@@ -1,0 +1,18 @@
+
+
+    <ion-card>                      
+        <ion-card-content>
+          <img class="program-image no-select" [src]="program.image || 'https://via.placeholder.com/140x120'">
+
+          <div class="image-overlay">
+            <div class="image-overlay-bottom">
+              <span class="image-overlay-extra-title">{{program.extratitle}}</span>
+              <span class="image-overlay-main-title">
+                {{program.title}}
+              </span>
+              <span class="image-overlay-nationality">{{program.nationality}}</span>
+            </div>
+          </div>
+        </ion-card-content>
+    </ion-card>
+
