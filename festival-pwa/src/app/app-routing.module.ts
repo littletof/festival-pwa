@@ -9,14 +9,14 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: './home/home.module#HomePageModule'
+    loadChildren: './pages/home/home.module#HomePageModule'
   },
   {
     path: 'list',
-    loadChildren: './list/list.module#ListPageModule'
+    loadChildren: './pages/list/list.module#ListPageModule'
   },
-  { path: 'programs', loadChildren: './programs/programs.module#ProgramsPageModule' },
-  { path: 'info', loadChildren: './info/info.module#InfoPageModule' }
+  { path: 'programs', loadChildren: './pages/programs/programs.module#ProgramsPageModule' },
+  { path: 'info', loadChildren: './pages/info/info.module#InfoPageModule' }
 ];
 
 @NgModule({
