@@ -11,18 +11,20 @@
 
     <ion-grid>
         <ion-row>
-          <ion-col size="6" sizeLg="2" *ngFor="let program of programs" style="height:25%">
+          <ion-col size="6" sizeLg="4" *ngFor="let program of programs" style="height:25%">
 
               <ion-card>                      
                   <ion-card-content>
-                    <img class="program-image" [src]="program.image || 'https://via.placeholder.com/140x120'">
+                    <img class="program-image no-select" [src]="program.image || 'https://via.placeholder.com/140x120'">
 
                     <div class="image-overlay">
-                      <span class="image-overlay-extra-title">Ez egy kis bevezető:</span>
-                      <span class="image-overlay-main-title">
-                        {{program.title}}
-                      </span>
-                      <span>UK</span>
+                      <div class="image-overlay-bottom">
+                        <span class="image-overlay-extra-title">{{program.extratitle}}</span>
+                        <span class="image-overlay-main-title">
+                          {{program.title}}
+                        </span>
+                        <span class="image-overlay-nationality">{{program.nationality}}</span>
+                      </div>
                     </div>
                   </ion-card-content>
               </ion-card>
