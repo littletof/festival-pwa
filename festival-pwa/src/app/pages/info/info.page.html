@@ -1,9 +1,14 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>info</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Infó</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-    Verzió: {{version.version}} Publish: {{version.publish_date}} Commit: {{version.raw}}
+    <div>Verzió: {{version.version}}</div>
+    <div>Commit: {{version.raw}}</div>
+    <div>Publish: {{version.publish_date}}</div>
 </ion-content>

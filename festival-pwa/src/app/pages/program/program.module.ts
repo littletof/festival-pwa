@@ -5,14 +5,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ProgramsPage } from './programs.page';
-import { ProgramTileComponent } from './program-tile/program-tile.component';
+import { ProgramPage } from './program.page';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 const routes: Routes = [
   {
     path: '',
-    component: ProgramsPage
+    component: ProgramPage
   }
 ];
 
@@ -24,6 +23,6 @@ const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ProgramsPage, ProgramTileComponent]
+  declarations: [ProgramPage]
 })
-export class ProgramsPageModule {}
+export class ProgramPageModule {}

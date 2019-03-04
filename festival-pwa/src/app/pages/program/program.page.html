@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>program</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="content-grid">
+    <ion-row>
+      <ion-col size="12" sizeLg="6" class="p0">
+        <div class="cover">
+          <ion-img class="program-image no-select" src="http://www.zeneszoveg.hu/img/416513_10150724045178454_60052753453_11114038_688835773_o.jpg"></ion-img>
+
+          <div class="image-overlay">
+            <div class="image-overlay-bottom">
+              <span class="image-overlay-extra-title"></span>
+              <span class="image-overlay-main-title">
+                Brains
+              </span>
+              <span class="image-overlay-nationality">HU</span>
+            </div>
+          </div>
+        </div>
+          <ion-list>
+              <ion-item>
+                <ion-icon name="calendar" slot="start" color="secondary"></ion-icon>
+                <ion-label>Péntek 20:30 - 22:00</ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-icon name="pin" slot="start" color="secondary"></ion-icon>
+                <ion-label>Telekom Nagyszínpad</ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-grid class="p0">
+                  <ion-row >
+                    <ion-col class="p0 social-icon" size="2" offset="1"><ion-icon name="globe" color="secondary"></ion-icon></ion-col>
+                    <ion-col class="p0 social-icon" size="2"><ion-icon name="logo-facebook" color="secondary"></ion-icon></ion-col>
+                    <ion-col class="p0 social-icon" size="2"><ion-icon name="logo-instagram" color="secondary"></ion-icon></ion-col>
+                    <ion-col class="p0 social-icon" size="2"><ion-icon name="logo-twitter" color="secondary"></ion-icon></ion-col>
+                    <ion-col class="p0 social-icon" size="2"><ion-icon name="logo-youtube" color="secondary"></ion-icon></ion-col>
+                  </ion-row>
+                </ion-grid>  
+              </ion-item>
+          </ion-list>
+
+
+      </ion-col>
+      <ion-col size="12" sizeLg="6">
+        <ion-list>
+            <ion-list-header>
+              <ion-label>Hírek</ion-label>
+            </ion-list-header>
+            <ion-item>
+
+                <ion-slides pager="true">
+                    <ion-slide>
+                        <app-news-card priority="danger" title="Esős időjárás" content="Kedves VOLTozók! Várhatóan esős esténk lesz, mindenképp hozzatok esőkabátot és öltözzetek melegen! 💦"></app-news-card>
+                    </ion-slide>
+                    <ion-slide>
+                        <app-news-card title="Program ajánló" moreButton="true" content="Ma este Iron Maiden! 😉 😎 De előtte és utána is sok sok program közül választhattok, koncerteket ..."></app-news-card>
+                    </ion-slide>
+                    <ion-slide>
+                        <app-news-card priority="warning" title="Programváltozás" content="A Rudimental DJ Set 2-kor kezdődik! Érezzétek jól magatokat! 😉"></app-news-card>
+                    </ion-slide>
+                  </ion-slides>
+
+            </ion-item>
+
+            <ion-list-header>
+                <ion-label>Leírás</ion-label>
+            </ion-list-header>
+            <ion-item>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores sed fuga veniam explicabo quis, quaerat mollitia soluta nesciunt at totam nihil nisi laudantium porro blanditiis a iure quisquam voluptatibus quae.
+              Libero iure eligendi quam rerum! Ullam ut pariatur placeat amet. Nam magni numquam dolorum laborum modi, dolores suscipit ipsa error aspernatur impedit culpa porro, quasi deleniti atque quia sit consequuntur.
+              Veritatis eaque dolor architecto omnis minus quo tenetur? Rerum itaque totam reiciendis, praesentium optio voluptatem? Perferendis, expedita? Provident, fuga eum. Laboriosam repellendus accusamus placeat, natus nobis labore quidem quae distinctio.
+              Soluta provident necessitatibus recusandae labore ea distinctio nesciunt id voluptatem non, nihil aliquid, eius harum vitae. Suscipit, tenetur nihil nisi praesentium deserunt quos commodi totam odit architecto consectetur! Saepe, harum!
+              Enim a quae earum iusto, necessitatibus saepe aliquam veniam facere autem? Voluptatum voluptatem fuga autem neque! Molestias error amet fugit illo accusamus ut repudiandae hic? Voluptate voluptatum totam placeat hic!
+            </ion-item>
+
+          </ion-list>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>
