@@ -19,5 +19,14 @@ ion-card.priority{
     &>ion-card-content{
         margin-left: -8px;
     }
+}
 
+ion-card{
+    --ion-item-background: #fff;
+}
+
+ion-card>ion-card-content{
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

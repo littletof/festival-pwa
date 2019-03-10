@@ -58,3 +58,7 @@
         display: block;
     }
 }
+
+.light-bg{
+    --ion-item-background: linear-gradient(#fff,#f8f8f8,#f8f8f8,#f8f8f8,#f8f8f8,#f8f8f8,#fff);
+}

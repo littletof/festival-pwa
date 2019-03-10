@@ -9,6 +9,14 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-    
+<ion-content class="page-content">
+      <div *ngIf="!news" class="spinner-container">
+        <ion-spinner color="primary"></ion-spinner>
+      </div>
+
+      <app-news-card *ngFor="let newsItem of news"
+          [title]="newsItem.title"
+          [content]="newsItem.content"
+          [priority]="newsItem.priority">
+      </app-news-card>
 </ion-content>
