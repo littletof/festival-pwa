@@ -198,6 +198,14 @@
     },
     "@ionic/angular-toolkit:page": {
       "styleext": "scss"
+    },
+    "@schematics/angular": {
+      "component": {
+        "spec": false
+      },
+      "service": {
+        "spec": false
+      }
     }
   }
 }

@@ -1,0 +1,4 @@
+<div class="online-bar" [ngClass]="{'offline': !pwa.isOnline, 'online': pwa.isOnline}">
+    <span *ngIf="!pwa.isOnline">Offline - {{ (pwa.getLastOnlineDate() | date:'yyyy.MM.dd HH:mm') || 'Ismeretlen ideje'}}</span>
+    <span *ngIf="pwa.isOnline">Online</span>
+</div>

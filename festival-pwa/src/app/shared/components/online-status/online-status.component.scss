@@ -1,0 +1,21 @@
+
+
+.online-bar{
+    --bar-height: 1.8rem;
+    width: 100%;
+
+    color: white;
+    text-align: center;
+    line-height: var(--bar-height);
+    transition: height 1s;
+
+    &.offline{
+        background-color: #565656;
+        height: var(--bar-height);
+    }
+
+    &.online{
+        background-color: var(--ion-color-success);
+        height: 0px;
+    }
+}
