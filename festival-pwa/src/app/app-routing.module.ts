@@ -5,12 +5,12 @@ import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'home',
+    path: 'home',
+    redirectTo: '',
     pathMatch: 'full'
   },
   {
-    path: 'home',
+    path: '',
     loadChildren: './pages/home/home.module#HomePageModule'
   },
   {
@@ -18,8 +18,8 @@ const routes: Routes = [
     loadChildren: './pages/list/list.module#ListPageModule'
   },
   { path: 'programs', loadChildren: './pages/programs/programs.module#ProgramsPageModule' },
+  { path: 'program', loadChildren: './pages/program/program.module#ProgramPageModule' },
   { path: 'info', loadChildren: './pages/info/info.module#InfoPageModule' },
-  { path: 'program', loadChildren: './pages/program/program.module#ProgramPageModule' }
 ];
 
 @NgModule({

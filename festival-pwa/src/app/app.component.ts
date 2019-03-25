@@ -12,7 +12,7 @@ export class AppComponent {
   public appPages = [
     {
       title: 'Hírek',
-      url: '/home',
+      url: '/',
       icon: 'home'
     },
     {
@@ -42,7 +42,7 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
+      // this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
   }

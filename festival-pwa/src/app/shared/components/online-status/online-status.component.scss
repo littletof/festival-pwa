@@ -9,6 +9,8 @@
     line-height: var(--bar-height);
     transition: height 1s;
 
+    overflow: hidden;
+
     &.offline{
         background-color: #565656;
         height: var(--bar-height);

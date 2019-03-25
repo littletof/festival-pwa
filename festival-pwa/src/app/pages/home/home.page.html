@@ -3,6 +3,14 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="pwa.updateAvailable" (click)="pwa.refresh()">
+        <ion-icon name="refresh-circle"></ion-icon>
+      </ion-button>
+        <ion-button *ngIf="pwa.canInstall && !pwa.updateAvailable" (click)="pwa.installPWA()">
+          <ion-icon name="download"></ion-icon>
+        </ion-button>
+    </ion-buttons>
     <ion-title>
       Hírek
     </ion-title>
@@ -10,13 +18,19 @@
 </ion-header>
 <app-online-status></app-online-status>
 <ion-content class="page-content">
-      <div *ngIf="!news" class="spinner-container">
-        <ion-spinner color="primary"></ion-spinner>
-      </div>
 
-      <app-news-card *ngFor="let newsItem of news"
-          [title]="newsItem.title"
-          [content]="newsItem.content"
-          [priority]="newsItem.priority">
-      </app-news-card>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content 
+        pullingIcon="refresh"
+        refreshingSpinner="crescent"></ion-refresher-content>
+    </ion-refresher>
+    <div *ngIf="!news" class="spinner-container">
+      <ion-spinner color="primary"></ion-spinner>
+    </div>
+
+    <app-news-card *ngFor="let newsItem of news"
+        [title]="newsItem.title"
+        [content]="newsItem.content"
+        [priority]="newsItem.priority">
+    </app-news-card>
 </ion-content>

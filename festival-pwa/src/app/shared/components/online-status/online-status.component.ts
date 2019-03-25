@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PWAService } from '../../services/pwa.service';
+import { AppService } from '../../services/app.service';
 
 @Component({
   selector: 'app-online-status',
@@ -8,7 +8,7 @@ import { PWAService } from '../../services/pwa.service';
 })
 export class OnlineStatusComponent implements OnInit {
 
-  constructor(public pwa: PWAService) { }
+  constructor(public app: AppService) { }
 
   ngOnInit() {}
 

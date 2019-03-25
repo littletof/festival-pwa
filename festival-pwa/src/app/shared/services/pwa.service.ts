@@ -1,35 +1,44 @@
 import { Injectable } from '@angular/core';
 import { ConnectionService } from 'ng-connection-service';
 import { SettingsService } from './settings.service';
+import { SwUpdate } from '@angular/service-worker';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PWAService {
 
-  lastOnlineKey = 'settings_last_online_date';
+  public promptEvent: any;
+  public canInstall: boolean;
 
-  isOnline = navigator.onLine;
+  public updateAvailable = false;
 
-  constructor(private connectionService: ConnectionService, private settings: SettingsService) {
-    if (navigator.onLine) {
-      this.nowOnline();
-    }
+  constructor(private swUpdate: SwUpdate) {
+    window.addEventListener('beforeinstallprompt', event => {
+      console.log('beforeinstallprompt install was triggered.');
+      this.promptEvent = event;
+      this.canInstall = true;
+    });
 
-    this.connectionService.monitor().subscribe(isOnline => {
-      this.isOnline = isOnline;
-      if (isOnline) {
-        this.nowOnline();
-      }
+    swUpdate.available.subscribe(event => {
+      console.log('UpdateAvailable. REFRESH!');
+      this.updateAvailable = true;
     });
   }
 
-  getLastOnlineDate(): Date {
-    return this.settings.getData(this.lastOnlineKey);
+  public installPWA() {
+    if (this.promptEvent) {
+      this.promptEvent.prompt();
+      this.canInstall = false;
+      console.log('prompted to install.');
+    } else {
+      console.log('no prompt event fired...');
+    }
   }
 
-  private nowOnline() {
-    this.settings.saveData(this.lastOnlineKey, new Date());
+  public refresh() {
+    this.updateAvailable = false;
+    window.location.reload();
   }
 
 }

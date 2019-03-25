@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class SettingsService {
 
+  lastOnlineKey = 'settings_last_online_date';
+
   constructor() { }
 
   saveData(key: string, data: any) {

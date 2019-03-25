@@ -3,12 +3,32 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
+    <ion-buttons slot="end">
+        <ion-button *ngIf="pwa.updateAvailable" (click)="pwa.refresh()">
+          <ion-icon name="refresh-circle"></ion-icon>
+        </ion-button>
+          <ion-button *ngIf="pwa.canInstall && !pwa.updateAvailable" (click)="pwa.installPWA()">
+            <ion-icon name="download"></ion-icon>
+          </ion-button>
+      </ion-buttons>
     <ion-title>Infó</ion-title>
   </ion-toolbar>
 </ion-header>
 <app-online-status></app-online-status>
 <ion-content padding>
-    <div>Verzió: {{version.version}}</div>
-    <div>Commit: {{version.raw}}</div>
-    <div>Publish: {{version.publish_date}}</div>
+  <div>Verzió: {{version.version}}</div>
+  <div>Commit: {{version.raw}}</div>
+  <div>Publish: {{version.publish_date}}</div>
+  <div>
+    Recognized platforms:<br>
+    <ion-chip color="primary" [outline]="true" *ngFor="let plat of platforms">
+      <ion-label color="primary">{{plat}}</ion-label>
+    </ion-chip>
+  </div>
+  <ion-button size="small" (click)="pwa.refresh()">
+    <ion-icon slot="start" name="refresh-circle"></ion-icon>
+    Force Refresh
+  </ion-button>
+
+
 </ion-content>
