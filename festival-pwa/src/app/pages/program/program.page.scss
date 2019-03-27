@@ -17,6 +17,12 @@
     height: 230px;
 }
 
+::ng-deep .plt-desktop, .plt-phablet {
+    .cover {
+        height: 380px;
+    }
+}
+
 .image-overlay{
     position: absolute;
     bottom: 0px;

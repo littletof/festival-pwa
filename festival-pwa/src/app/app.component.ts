@@ -21,15 +21,15 @@ export class AppComponent {
       icon: 'paper'
     },
     {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
-    },
-    {
       title: 'Infó',
       url: '/info',
       icon: 'information-circle'
-    }
+    },
+    {
+      title: 'Beállítások',
+      url: '/settings',
+      icon: 'settings'
+    },
   ];
 
   constructor(

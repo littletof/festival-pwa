@@ -1,9 +1,21 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button defaultHref="programs"></ion-back-button>
     </ion-buttons>
-    <ion-title>program</ion-title>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="pwa.updateAvailable" (click)="pwa.refresh()">
+        <ion-icon name="refresh-circle"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="pwa.canInstall && !pwa.updateAvailable" (click)="pwa.installPWA()">
+        <ion-icon name="download"></ion-icon>
+      </ion-button>
+      <ion-button (click)="toggleFavourite()">
+        <ion-icon name="star-outline" *ngIf="!isFavourite"></ion-icon>
+        <ion-icon name="star" *ngIf="isFavourite"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title></ion-title>
   </ion-toolbar>
 </ion-header>
 <app-online-status></app-online-status>

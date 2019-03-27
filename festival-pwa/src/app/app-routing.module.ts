@@ -13,13 +13,11 @@ const routes: Routes = [
     path: '',
     loadChildren: './pages/home/home.module#HomePageModule'
   },
-  {
-    path: 'list',
-    loadChildren: './pages/list/list.module#ListPageModule'
-  },
   { path: 'programs', loadChildren: './pages/programs/programs.module#ProgramsPageModule' },
   { path: 'program', loadChildren: './pages/program/program.module#ProgramPageModule' },
   { path: 'info', loadChildren: './pages/info/info.module#InfoPageModule' },
+  { path: 'settings', loadChildren: './pages/settings/settings.module#SettingsPageModule' },
+
 ];
 
 @NgModule({
