@@ -1,7 +1,13 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="programs"></ion-back-button>
+
+      <ion-back-button defaultHref="programs" *ngIf="isHome()"></ion-back-button>
+      
+      <ion-button *ngIf="!isHome()" (click)="home()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button *ngIf="pwa.updateAvailable" (click)="pwa.refresh()">
@@ -10,55 +16,65 @@
       <ion-button *ngIf="pwa.canInstall && !pwa.updateAvailable" (click)="pwa.installPWA()">
         <ion-icon name="download"></ion-icon>
       </ion-button>
-      <ion-button (click)="toggleFavourite()">
-        <ion-icon name="star-outline" *ngIf="!isFavourite"></ion-icon>
-        <ion-icon name="star" *ngIf="isFavourite"></ion-icon>
-      </ion-button>
     </ion-buttons>
-    <ion-title></ion-title>
+    <ion-title *ngIf="!isHome()">Telekom nagyszínpad</ion-title>
   </ion-toolbar>
 </ion-header>
 <app-online-status></app-online-status>
 <ion-content>
+  <ion-slides #slider (ionSlideDidChange)="swiped($event)">
+    <ion-slide>
   <ion-grid class="content-grid">
     <ion-row>
       <ion-col size="12" sizeLg="6" class="p0">
         <div class="cover">
-          <ion-img class="program-image no-select" [src]="program.image || 'https://via.placeholder.com/140x120'"></ion-img>
+          <ion-img class="program-image no-select" [src]="null || 'https://via.placeholder.com/140x120'"></ion-img>
 
           <div class="image-overlay">
             <div class="image-overlay-bottom">
-              <span class="image-overlay-extra-title">{{program.extratitle}}</span>
+              <span class="image-overlay-extra-title">RETEK</span>
               <span class="image-overlay-main-title">
-                {{program.title}}
+                Telekom nagyszínpad
               </span>
-              <span class="image-overlay-nationality">{{program.nationality}}</span>
+              <span class="image-overlay-extra">Cabernie</span>
             </div>
           </div>
         </div>
-          <ion-list>
+
+          <ion-list class="info-list">
+              <div class="chip-holder">
+                <ion-chip outline="true">
+                  <ion-icon name="sunny" color="secondary"></ion-icon>
+                  <ion-label>Szabadtéri</ion-label>
+                </ion-chip>
+                <ion-chip outline="true">
+                  <ion-icon name="musical-notes" color="secondary"></ion-icon>
+                  <ion-label>Zene</ion-label>
+                </ion-chip>
+                <ion-chip outline="true">
+                  <ion-icon name="beer" color="secondary"></ion-icon>
+                  <ion-label>Alkohol</ion-label>
+                </ion-chip>
+                <ion-chip outline="true">
+                  <ion-icon name="outlet" color="secondary"></ion-icon>
+                  <ion-label>Konnector</ion-label>
+                </ion-chip>
+                <ion-chip outline="true">
+                  <ion-icon name="microphone" color="secondary"></ion-icon>
+                  <ion-label>Élőzene</ion-label>
+                </ion-chip>
+              </div>
+
               <ion-item>
-                <ion-icon name="calendar" slot="start" color="secondary"></ion-icon>
-                <ion-label>Péntek 20:30 - 22:00</ion-label>
+                  <ion-icon name="map" slot="start" color="secondary"></ion-icon>
+                  <ion-label>Megtekintés térképen</ion-label>
               </ion-item>
-              <ion-item routerLink="/location">
-                <ion-icon name="pin" slot="start" color="secondary"></ion-icon>
-                <ion-label>Telekom Nagyszínpad</ion-label>
-              </ion-item>
-              <ion-item>
-                <ion-grid class="p0">
-                  <ion-row >
-                    <ion-col class="p0 social-icon" size="2" offset="1"><ion-icon name="globe" color="secondary"></ion-icon></ion-col>
-                    <ion-col class="p0 social-icon" size="2"><ion-icon name="logo-facebook" color="secondary"></ion-icon></ion-col>
-                    <ion-col class="p0 social-icon" size="2"><ion-icon name="logo-instagram" color="secondary"></ion-icon></ion-col>
-                    <ion-col class="p0 social-icon" size="2"><ion-icon name="logo-twitter" color="secondary"></ion-icon></ion-col>
-                    <ion-col class="p0 social-icon" size="2"><ion-icon name="logo-youtube" color="secondary"></ion-icon></ion-col>
-                  </ion-row>
-                </ion-grid>  
+
+              <ion-item (click)="slider.slideTo(1)">
+                  <ion-icon name="list" slot="start" color="secondary"></ion-icon>
+                  <ion-label>Programok</ion-label>
               </ion-item>
           </ion-list>
-
-
       </ion-col>
       <ion-col size="12" sizeLg="6">
         <ion-list>
@@ -94,8 +110,18 @@
 
           </ion-list>
       </ion-col>
+
+          
     </ion-row>
 
   </ion-grid>
+</ion-slide>
+<ion-slide>
+  <h1>Slide 2</h1>
+</ion-slide>
+<ion-slide>
+  <h1>Slide 3</h1>
+</ion-slide>
+</ion-slides>
 
 </ion-content>
