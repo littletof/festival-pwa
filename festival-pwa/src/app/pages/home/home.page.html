@@ -28,7 +28,7 @@
       <ion-spinner color="primary"></ion-spinner>
     </div>
 
-    <app-news-card *ngFor="let newsItem of news"
+    <app-news-card *ngFor="let newsItem of news?.payload?.data"
         [title]="newsItem.title"
         [content]="newsItem.content"
         [priority]="newsItem.priority">

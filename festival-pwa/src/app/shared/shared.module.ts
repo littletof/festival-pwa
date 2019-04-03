@@ -10,7 +10,15 @@ import { ImageCachePipe } from './pipes/image-cache.pipe';
     CommonModule,
     IonicModule
   ],
-  declarations: [NewsCardComponent, OnlineStatusComponent, ImageCachePipe],
-  exports: [NewsCardComponent, OnlineStatusComponent]
+  declarations: [
+    NewsCardComponent,
+    OnlineStatusComponent,
+    ImageCachePipe,
+  ],
+  exports: [
+    NewsCardComponent,
+    OnlineStatusComponent,
+    ImageCachePipe,
+  ]
 })
 export class SharedModule { }

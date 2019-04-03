@@ -3,6 +3,7 @@ import { ConnectionService } from 'ng-connection-service';
 import { SettingsService } from './settings.service';
 
 import { VERSION } from '../../../environments/version';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class AppService {
     this.setupOnline();
   }
 
-  setupOnline() {
+  private setupOnline() {
     if (navigator.onLine) {
       this.nowOnline();
     }
@@ -26,6 +27,10 @@ export class AppService {
         this.nowOnline();
       }
     });
+  }
+
+  getOnlineStatusObservable(): Observable<boolean> {
+    return this.connectionService.monitor();
   }
 
   getLastOnlineDate(): Date {

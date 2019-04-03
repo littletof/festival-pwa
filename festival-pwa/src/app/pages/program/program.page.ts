@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Program } from 'src/app/shared/models/program';
 import { DataService } from 'src/app/shared/services/data.service';
+import { HashedData } from 'src/app/shared/models/data';
 
 @Component({
   selector: 'app-program',
@@ -24,9 +25,9 @@ export class ProgramPage implements OnInit {
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id']; // (+) converts string 'id' to a number
 
-      this.data.getJSON<Program[]>('https://festapp-pwa-backend.azurewebsites.net/api/news/programs').subscribe(programs => {
+      this.data.getJSON<HashedData<Program[]>>('https://festapp-pwa-backend.azurewebsites.net/api/news/programs').subscribe(programs => {
         console.log('GOT', programs);
-        this.program = programs[this.id];
+        this.program = programs.payload.data[this.id];
       });
    });
   }

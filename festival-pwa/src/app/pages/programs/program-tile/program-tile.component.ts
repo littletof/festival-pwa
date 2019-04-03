@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DataService } from 'src/app/shared/services/data.service';
+import { Program } from 'src/app/shared/models/program';
 
 @Component({
   selector: 'app-program-tile',
@@ -9,19 +10,7 @@ import { DataService } from 'src/app/shared/services/data.service';
 export class ProgramTileComponent implements OnInit {
 
   @Input() id: number;
-
-  _program: any;
-
-  get program(): any {
-    return this._program;
-  }
-
-  @Input('program')
-  set program(value: any) {
-    this._program = value;
-    this.data.getImageURL(this._program.image).subscribe(url => this._program.image = url);
-    this._program.image = 'https://via.placeholder.com/140x120';
-  }
+  @Input() program: any;
 
   constructor(public data: DataService) { }
 

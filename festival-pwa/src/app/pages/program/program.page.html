@@ -24,7 +24,7 @@
     <ion-row>
       <ion-col size="12" sizeLg="6" class="p0">
         <div class="cover">
-          <ion-img class="program-image no-select" [src]="program.image || 'https://via.placeholder.com/140x120'"></ion-img>
+          <ion-img class="program-image no-select" [src]="program.image | imageCache | async"></ion-img>
 
           <div class="image-overlay">
             <div class="image-overlay-bottom">

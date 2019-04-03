@@ -17,14 +17,22 @@
       <ion-title>Programok</ion-title>
   </ion-toolbar>
 </ion-header>
-<app-online-status></app-online-status>
-<ion-content >
+<app-online-status [promise]="programs"></app-online-status>
+<ion-content>
+
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" [disabled]="!app.isOnline">
+        <ion-refresher-content 
+          pullingIcon="refresh"
+          refreshingSpinner="crescent"></ion-refresher-content>
+    </ion-refresher>
     <div *ngIf="!programs" class="spinner-container">
         <ion-spinner color="primary"></ion-spinner>
-      </div>
+    </div>
+
+
     <ion-grid>
         <ion-row>
-            <ion-col *ngFor="let program of programs; let ind = index" size="6" sizeLg="4">
+            <ion-col *ngFor="let program of programs?.payload.data; let ind = index" size="6" sizeLg="4">
               <app-program-tile [program]="program" [id]="ind"></app-program-tile>
             </ion-col>
         </ion-row>

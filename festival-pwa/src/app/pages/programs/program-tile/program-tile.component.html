@@ -2,7 +2,7 @@
 
     <ion-card routerLink="/program/{{id}}" >                      
         <ion-card-content>
-          <ion-img class="program-image no-select" [src]="program.image"></ion-img>
+          <ion-img class="program-image no-select" [src]="program.image | imageCache | async"></ion-img>
 
           <div class="image-overlay">
             <div class="image-overlay-bottom">

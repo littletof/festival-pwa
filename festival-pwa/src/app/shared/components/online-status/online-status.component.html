@@ -1,4 +1,4 @@
 <div class="online-bar" [ngClass]="{'offline': !app.isOnline, 'online': app.isOnline}">
-    <span *ngIf="!app.isOnline">Offline - {{ (app.getLastOnlineDate() | date:'yyyy.MM.dd HH:mm') || 'Ismeretlen ideje'}}</span>
+    <span *ngIf="!app.isOnline">Offline - {{ (getDate() | date:'yyyy.MM.dd HH:mm') || 'Ismeretlen ideje'}}</span>
     <span *ngIf="app.isOnline">Online</span>
 </div>
