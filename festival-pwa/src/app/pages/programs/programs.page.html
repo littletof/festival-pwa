@@ -19,11 +19,13 @@
 </ion-header>
 <app-online-status></app-online-status>
 <ion-content >
-
+    <div *ngIf="!programs" class="spinner-container">
+        <ion-spinner color="primary"></ion-spinner>
+      </div>
     <ion-grid>
         <ion-row>
-            <ion-col *ngFor="let program of programs" size="6" sizeLg="4">
-              <app-program-tile [program]="program" ></app-program-tile>
+            <ion-col *ngFor="let program of programs; let ind = index" size="6" sizeLg="4">
+              <app-program-tile [program]="program" [id]="ind"></app-program-tile>
             </ion-col>
         </ion-row>
       </ion-grid>

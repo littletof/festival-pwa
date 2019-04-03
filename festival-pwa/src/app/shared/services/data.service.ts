@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Store, get, set, keys} from 'idb-keyval';
+import { Store, get, set, keys, clear} from 'idb-keyval';
 
 
 @Injectable({
@@ -15,7 +15,7 @@ export class DataService {
 
   clearDataCache() {
     localStorage.clear();
-    indexedDB.deleteDatabase('image');
+    clear(this.imageStore);
     // legyen lista több db name és azon iteráljon végig
   }
 
@@ -30,6 +30,8 @@ export class DataService {
     if (cachedResponse) {
       console.log('replay cached', JSON.parse(cachedResponse));
       cache.next(JSON.parse(cachedResponse));
+      // TODO cache strategy, mi legyen
+      return cache;
     }
 
     this.http.get<T>(url).subscribe(o => {
@@ -45,7 +47,9 @@ export class DataService {
   }
 
   getImageURL(url: string, useCache: boolean = true): Observable<string> {
-    console.log(url);
+    if (!url) {
+      return of(null);
+    }
     if (!useCache) {
       return of(url);
     }
@@ -63,7 +67,7 @@ export class DataService {
           set(url, imageBlob, this.imageStore);
           urlObs.next(URL.createObjectURL(imageBlob));
         }, e => console.log(e));
-        
+
 /*
         this.http.get<any>(url).subscribe(image => {
           const blob = image.blob();

@@ -1,9 +1,25 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>settings</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="pwa.updateAvailable" (click)="pwa.refresh()">
+        <ion-icon name="refresh-circle"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="pwa.canInstall && !pwa.updateAvailable" (click)="pwa.installPWA()">
+        <ion-icon name="download"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Beállítások</ion-title>
   </ion-toolbar>
 </ion-header>
-
+<app-online-status></app-online-status>
 <ion-content padding>
+
+  <ion-button size="small" (click)="data.clearDataCache()">
+    <ion-icon slot="start" name="trash"></ion-icon>
+    Cache törlése
+  </ion-button>
 
 </ion-content>

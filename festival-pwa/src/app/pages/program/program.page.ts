@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { PWAService } from 'src/app/shared/services/pwa.service';
 import { ToastController } from '@ionic/angular';
-import { routerNgProbeToken } from '@angular/router/src/router_module';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { Program } from 'src/app/shared/models/program';
+import { DataService } from 'src/app/shared/services/data.service';
 
 @Component({
   selector: 'app-program',
@@ -11,10 +14,21 @@ import { routerNgProbeToken } from '@angular/router/src/router_module';
 export class ProgramPage implements OnInit {
 
   isFavourite: boolean;
+  sub: Subscription;
+  id: number;
+  program: Program;
 
-  constructor(public pwa: PWAService, private toastController: ToastController) { }
+  constructor(private route: ActivatedRoute, public pwa: PWAService, public data: DataService, private toastController: ToastController) { }
 
   ngOnInit() {
+    this.sub = this.route.params.subscribe(params => {
+      this.id = +params['id']; // (+) converts string 'id' to a number
+
+      this.data.getJSON<Program[]>('https://festapp-pwa-backend.azurewebsites.net/api/news/programs').subscribe(programs => {
+        console.log('GOT', programs);
+        this.program = programs[this.id];
+      });
+   });
   }
 
   toggleFavourite() {

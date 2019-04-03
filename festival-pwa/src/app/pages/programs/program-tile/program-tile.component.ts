@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DataService } from 'src/app/shared/services/data.service';
-import { AnyNaptrRecord } from 'dns';
+import { identifierModuleUrl } from '@angular/compiler';
 
 @Component({
   selector: 'app-program-tile',
@@ -8,6 +8,8 @@ import { AnyNaptrRecord } from 'dns';
   styleUrls: ['./program-tile.component.scss'],
 })
 export class ProgramTileComponent implements OnInit {
+
+  @Input() id: number;
 
   _program: any;
 

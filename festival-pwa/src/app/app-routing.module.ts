@@ -14,7 +14,7 @@ const routes: Routes = [
     loadChildren: './pages/home/home.module#HomePageModule'
   },
   { path: 'programs', loadChildren: './pages/programs/programs.module#ProgramsPageModule' },
-  { path: 'program', loadChildren: './pages/program/program.module#ProgramPageModule' },
+  { path: 'program/:id', loadChildren: './pages/program/program.module#ProgramPageModule' },
   { path: 'info', loadChildren: './pages/info/info.module#InfoPageModule' },
   { path: 'settings', loadChildren: './pages/settings/settings.module#SettingsPageModule' },
 

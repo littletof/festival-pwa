@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PWAService } from 'src/app/shared/services/pwa.service';
+import { DataService } from 'src/app/shared/services/data.service';
 
 @Component({
   selector: 'app-settings',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsPage implements OnInit {
 
-  constructor() { }
+  constructor(public pwa: PWAService, public data: DataService) { }
 
   ngOnInit() {
   }
