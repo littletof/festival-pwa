@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DataService } from 'src/app/shared/services/data.service';
-import { identifierModuleUrl } from '@angular/compiler';
 
 @Component({
   selector: 'app-program-tile',

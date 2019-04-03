@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { ConnectionService } from 'ng-connection-service';
 import { SettingsService } from './settings.service';
 
+import { VERSION } from '../../../environments/version';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -28,6 +30,10 @@ export class AppService {
 
   getLastOnlineDate(): Date {
     return this.settings.getData(this.settings.lastOnlineKey);
+  }
+
+  getVersion() {
+    return VERSION;
   }
 
   private nowOnline() {

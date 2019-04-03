@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import { NewsCardComponent } from './components/news-card/news-card.component';
 import { IonicModule } from '@ionic/angular';
 import { OnlineStatusComponent } from './components/online-status/online-status.component';
+import { ImageCachePipe } from './pipes/image-cache.pipe';
 
 @NgModule({
   imports: [
     CommonModule,
     IonicModule
   ],
-  declarations: [NewsCardComponent, OnlineStatusComponent],
+  declarations: [NewsCardComponent, OnlineStatusComponent, ImageCachePipe],
   exports: [NewsCardComponent, OnlineStatusComponent]
 })
 export class SharedModule { }

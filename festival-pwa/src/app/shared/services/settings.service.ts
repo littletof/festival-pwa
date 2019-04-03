@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class SettingsService {
 
   lastOnlineKey = 'settings_last_online_date';
+  settings_lite_mode = 'settings_lite_mode';
 
   constructor() { }
 

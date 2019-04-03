@@ -22,8 +22,8 @@
 </ion-header>
 <app-online-status></app-online-status>
 <ion-content>
-  <ion-slides #slider (ionSlideDidChange)="swiped($event)">
-    <ion-slide>
+<ion-slides #slider [options]="{autoHeight: 'true'}" (ionSlideDidChange)="swiped($event)">
+  <ion-slide>
   <ion-grid class="content-grid">
     <ion-row>
       <ion-col size="12" sizeLg="6" class="p0">
@@ -115,13 +115,15 @@
     </ion-row>
 
   </ion-grid>
+
+
+
 </ion-slide>
 <ion-slide>
   <h1>Slide 2</h1>
 </ion-slide>
 <ion-slide>
-  <h1>Slide 3</h1>
+    <h1>Slide 3</h1>
 </ion-slide>
 </ion-slides>
-
 </ion-content>
