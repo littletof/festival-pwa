@@ -38,7 +38,7 @@ export class ImageCachePipe implements PipeTransform {
     });
   }
 
-  requireImage(value: string, qualityFirst: boolean, p: BehaviorSubject<string>) {
+  requireImage(value: string, qualityFirst: boolean, p: BehaviorSubject<string>, forceHttpGet = false) {
     if (value) {
       if (qualityFirst) {
         const notLight = this.settings.getData(this.settings.settings_not_lite_mode);

@@ -12,7 +12,7 @@ import { SettingsService } from './settings.service';
 })
 export class DataService {
 
-  public placeholderImageUrl = 'https://widget.szigetfestival.com/imgproxy/5c7e898c1b4f8_original.jpg';
+  public placeholderImageUrl = 'https://widget.szigetfestival.com/imgproxy/5c7e898c1b4f8_w360.jpg';
   private imageStore = new Store('FestApp', 'Images');
 
   constructor(private http: HttpClient, private app: AppService, public settings: SettingsService) { }
@@ -23,15 +23,17 @@ export class DataService {
     // legyen lista több db name és azon iteráljon végig
   }
 
-  clearImageCache() {
-    get(this.placeholderImageUrl, this.imageStore).then(img => {
-      console.log(img);
-      clear(this.imageStore);
+  async clearImageCache() {
+    const dimgw360 = await get(this.placeholderImageUrl, this.imageStore);
+    const dimgorigin = await get(this.placeholderImageUrl.replace('w360', 'original'), this.imageStore);
+    clear(this.imageStore);
 
-      if (img) { // if it has the placeholder dont delete it.
-        set(this.placeholderImageUrl, img, this.imageStore);
-      }
-    });
+    if (dimgw360) { // if it has the placeholder dont delete it.
+        set(this.placeholderImageUrl, dimgw360, this.imageStore);
+    }
+    if (dimgorigin) { // if it has the placeholder dont delete it.
+      set(this.placeholderImageUrl.replace('w360', 'original'), dimgorigin, this.imageStore);
+    }
 
   }
 
