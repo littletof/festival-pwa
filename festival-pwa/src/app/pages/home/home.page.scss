@@ -10,6 +10,15 @@
   }
 }
 
+.no-data-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  &>div{
+    margin: auto;
+  }
+}
+
 .page-content>ion-refresher{
   background-color:#f8f8f8;
   --color: var(--ion-color-primary);

@@ -1,5 +1,5 @@
 export class ProgData<T> {
-    payload: T;
+    payload?: T;
     src: 'cache' | 'web';
     error?: any;
     cacheDate?: Date;

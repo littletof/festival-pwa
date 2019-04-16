@@ -12,6 +12,8 @@ export class AppService {
 
   isOnline = navigator.onLine;
 
+  mutedLogs: string[] = [];
+
   constructor(private connectionService: ConnectionService, private settings: SettingsService) {
     this.setupOnline();
   }
@@ -35,6 +37,16 @@ export class AppService {
 
   getLastOnlineDate(): Date {
     return this.settings.getData(this.settings.lastOnlineKey);
+  }
+
+  nospamlog(id: string, console: (any) => any, message: any, muteFor: number) {
+    if (this.mutedLogs.indexOf(id) === -1) {
+      this.mutedLogs.push(id);
+      console(message);
+      setTimeout(() => {
+        this.mutedLogs = this.mutedLogs.filter(i => i !== id);
+      }, muteFor * 1000);
+    }
   }
 
   getVersion() {

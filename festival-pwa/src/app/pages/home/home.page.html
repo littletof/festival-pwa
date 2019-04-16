@@ -16,10 +16,10 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
-<app-online-status></app-online-status>
+<app-online-status [cacheDate]="fetcher.getCacheDate()"></app-online-status>
 <ion-content class="page-content">
 
-    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher slot="fixed" (ionRefresh)="fetcher.refresh($event)">
       <ion-refresher-content 
         pullingIcon="refresh"
         refreshingSpinner="crescent"></ion-refresher-content>
@@ -28,9 +28,15 @@
       <ion-spinner color="primary"></ion-spinner>
     </div>
 
-    <app-news-card *ngFor="let newsItem of news?.payload?.data"
+    <div *ngIf="news.length == 0" class="no-data-container">
+      <div><ion-icon name="sad"></ion-icon> Nincs friss hír</div>
+    </div>
+
+    <app-news-card *ngFor="let newsItem of news"
         [title]="newsItem.title"
         [content]="newsItem.content"
         [priority]="newsItem.priority">
     </app-news-card>
+
+
 </ion-content>

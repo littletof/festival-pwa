@@ -10,27 +10,14 @@ import { ProgData } from '../../models/data';
 })
 export class OnlineStatusComponent implements OnInit {
 
-  _promise: ProgData<any>;
-
-  get promise(): ProgData<any> {
-    return this._promise;
-  }
-
-  @Input('promise')
-  set promise(value: ProgData<any>) {
-    console.log(value);
-    this._promise = value;
-    this.fetchData = value;
-  }
-
-  fetchData: ProgData<any>;
+  @Input() cacheDate: Date;
 
   constructor(public app: AppService) { }
 
   ngOnInit() {}
 
   getDate() {
-    return this.fetchData && this.fetchData.src === 'cache' && this.fetchData.cacheDate;
+    return this.cacheDate;
   }
 
 }

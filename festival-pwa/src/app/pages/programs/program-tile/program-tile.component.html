@@ -1,8 +1,12 @@
 
-
-    <ion-card routerLink="/program/{{id}}" >                      
-        <ion-card-content>
+<ion-button class="tile-btn" color="medium">
+    <ion-ripple-effect></ion-ripple-effect>
+    <ion-card routerLink="/program/{{id}}" >
+      <ion-card-content> 
           <ion-img class="program-image no-select" [src]="program.image | imageCache | async"></ion-img>
+          <!-- <ion-img class="program-image no-select" [src]="program.image | imageCache | async" (ionImgDidLoad)="imgLoaded($event)"></ion-img> -->
+          <!-- [ngStyle]="{'visibility': this.shouldDisplay ? 'visible': 'hidden'}" 
+          <div class="hide-img" *ngIf="!shouldDisplay"></div>-->
 
           <div class="image-overlay">
             <div class="image-overlay-bottom">
@@ -13,6 +17,7 @@
               <span class="image-overlay-nationality">{{program.nationality}}</span>
             </div>
           </div>
-        </ion-card-content>
-    </ion-card>
+      </ion-card-content>
+  </ion-card>
+</ion-button>
 

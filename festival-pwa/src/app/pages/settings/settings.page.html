@@ -17,9 +17,24 @@
 <app-online-status></app-online-status>
 <ion-content padding>
 
-  <ion-button size="small" (click)="data.clearDataCache()">
-    <ion-icon slot="start" name="trash"></ion-icon>
-    Cache törlése
-  </ion-button>
+  
+  <ion-item>
+      <ion-label>Lite mode</ion-label>
+      <ion-toggle slot="start" [ngModel]="isLite" (ngModelChange)="isLightChanged($event)"></ion-toggle>
+  </ion-item>
+  <ion-item>
+    <ion-label>Képek letöltésének mellőzése</ion-label>
+    <ion-toggle slot="start" [ngModel]="doNotDownloadImages" (ngModelChange)="imgDownloadChanged($event)"></ion-toggle>
+  </ion-item>
+  <ion-item>
+      <ion-button size="small" (click)="clearCache()">
+        <ion-icon slot="start" name="trash"></ion-icon>
+        Teljes cache törlése
+      </ion-button>
+      <ion-button size="small" (click)="clearImageCache()">
+        <ion-icon slot="start" name="trash"></ion-icon>
+        Mentett képek törlése
+      </ion-button>
+  </ion-item>
 
 </ion-content>

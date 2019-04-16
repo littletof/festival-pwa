@@ -17,10 +17,10 @@
       <ion-title>Programok</ion-title>
   </ion-toolbar>
 </ion-header>
-<app-online-status [promise]="programs"></app-online-status>
+<app-online-status [cacheDate]="fetcher.getCacheDate()"></app-online-status>
 <ion-content>
 
-    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" [disabled]="!app.isOnline">
+    <ion-refresher slot="fixed" (ionRefresh)="fetcher.refresh($event)" [disabled]="!app.isOnline">
         <ion-refresher-content 
           pullingIcon="refresh"
           refreshingSpinner="crescent"></ion-refresher-content>
@@ -32,10 +32,23 @@
 
     <ion-grid>
         <ion-row>
-            <ion-col *ngFor="let program of programs?.payload.data; let ind = index" size="6" sizeLg="4">
-              <app-program-tile [program]="program" [id]="ind"></app-program-tile>
+            <ion-col *ngFor="let program of programs" size="6" sizeLg="4">
+              <app-program-tile [program]="program" [id]="program.id"></app-program-tile>
             </ion-col>
         </ion-row>
       </ion-grid>
+      <!-- <ion-grid [virtualScroll]="programs">
+        <ion-row>
+          <ion-virtual-scroll [items]="programs"> 
+      
+              <ion-col *virtualItem="let program" size="6" sizeLg="4">
+                <app-program-tile [program]="program" [id]="program.id"></app-program-tile>
+              </ion-col>
+          
+            </ion-virtual-scroll> 
+      </ion-row>
+  </ion-grid> -->
+
+
 
 </ion-content>

@@ -1,10 +1,27 @@
 ion-card::ng-deep{
     margin: 0px;
    height: 100%;
+   width: 100%;
 }
 ion-card-content::ng-deep{
     padding: 0px;
     height: 149px;
+    width: 100%;
+}
+
+.tile-btn{
+    height: 149px;
+    width: 100%;
+    --padding-start: 0px;
+    --padding-end: 0px;
+}
+
+.hide-img{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background: bisque;
+    width: 100%;
 }
 
 .image-overlay{

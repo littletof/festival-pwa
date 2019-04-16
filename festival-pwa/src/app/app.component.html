@@ -27,7 +27,13 @@
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
-        <ion-item class="version-item">v{{version}}</ion-item>
+        <ion-item class="version-item">
+          v{{version}}
+          <ion-button size="small" slot="end" (click)="pwa.refresh()">
+              Force Refresh
+              <ion-icon slot="end" name="refresh-circle"></ion-icon>
+          </ion-button>
+        </ion-item>
       </ion-content>
     </ion-menu>
     <ion-router-outlet main></ion-router-outlet>

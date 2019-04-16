@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { Program } from 'src/app/shared/models/program';
 import { DataService } from 'src/app/shared/services/data.service';
 import { HashedData } from 'src/app/shared/models/data';
+import { FetcherService } from 'src/app/shared/services/fetcher.service';
 
 @Component({
   selector: 'app-program',
@@ -16,18 +17,23 @@ export class ProgramPage implements OnInit {
 
   isFavourite: boolean;
   sub: Subscription;
-  id: number;
+  id: string;
   program: Program;
 
-  constructor(private route: ActivatedRoute, public pwa: PWAService, public data: DataService, private toastController: ToastController) { }
+  constructor(private route: ActivatedRoute, public pwa: PWAService, public data: DataService, private toastController: ToastController, public fetcher: FetcherService<Program[]>) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      this.id = +params['id']; // (+) converts string 'id' to a number
+      this.id = params['id']; // (+) converts string 'id' to a number
 
-      this.data.getJSON<HashedData<Program[]>>('https://festapp-pwa-backend.azurewebsites.net/api/news/programs').subscribe(programs => {
+      /*this.data.getJSON<HashedData<Program[]>>('https://festapp-pwa-backend.azurewebsites.net/api/news/programs').subscribe(programs => {
         console.log('GOT', programs);
         this.program = programs.payload.data[this.id];
+      });*/
+
+      this.fetcher.register('#backend#/api/programs').subscribe(programs => {
+        console.log('GOT', programs);
+        this.program = programs.filter(p => p.id === this.id)[0];
       });
    });
   }

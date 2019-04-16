@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Store, get, set, keys, clear} from 'idb-keyval';
 import { LocalStorageData, ProgData } from '../models/data';
 import { AppService } from './app.service';
+import { SettingsService } from './settings.service';
 
 
 @Injectable({
@@ -11,14 +12,27 @@ import { AppService } from './app.service';
 })
 export class DataService {
 
+  public placeholderImageUrl = 'https://widget.szigetfestival.com/imgproxy/5c7e898c1b4f8_original.jpg';
   private imageStore = new Store('FestApp', 'Images');
 
-  constructor(private http: HttpClient, private app: AppService) { }
+  constructor(private http: HttpClient, private app: AppService, public settings: SettingsService) { }
 
-  clearDataCache() {
+  clearAllDataCache() {
     localStorage.clear();
-    clear(this.imageStore);
+    this.clearImageCache();
     // legyen lista több db name és azon iteráljon végig
+  }
+
+  clearImageCache() {
+    get(this.placeholderImageUrl, this.imageStore).then(img => {
+      console.log(img);
+      clear(this.imageStore);
+
+      if (img) { // if it has the placeholder dont delete it.
+        set(this.placeholderImageUrl, img, this.imageStore);
+      }
+    });
+
   }
 
   lsGetItem<T = any>(key: string): LocalStorageData<T> {
@@ -66,7 +80,8 @@ export class DataService {
             this.lsSetItem(url, o);
           },
           error => {
-            console.log('Cached data get error', error);
+            console.log('Couldn\'t fetch fresh data', error);
+            cache.next({wontFetch: true, error: error, src: 'web'});
           }
         );
     }
@@ -87,14 +102,21 @@ export class DataService {
     get(url, this.imageStore).then(data => {
 
       if (data) {
-        console.log('return from indexedDB', data);
+        // console.log('return from indexedDB', data);
         urlObs.next(URL.createObjectURL(data));
       } else {
 
-        this.http.get(url, { responseType: 'blob' }).subscribe(imageBlob => {
-          set(url, imageBlob, this.imageStore);
-          urlObs.next(URL.createObjectURL(imageBlob));
-        }, e => console.log(e));
+        if (!this.settings.getData(this.settings.settings_do_not_download_images)) {
+
+          this.http.get(url, { responseType: 'blob' }).subscribe(imageBlob => {
+            set(url, imageBlob, this.imageStore);
+            urlObs.next(URL.createObjectURL(imageBlob));
+          }, e => console.log(e));
+
+        } else {
+          this.app.nospamlog('2312', console.warn, 'No image, because setting was set not to download it.', 1);
+        }
+
       }
     });
 

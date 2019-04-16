@@ -12,8 +12,14 @@ export class ProgramTileComponent implements OnInit {
   @Input() id: number;
   @Input() program: any;
 
+  shouldDisplay: boolean;
+
   constructor(public data: DataService) { }
 
   ngOnInit() {}
 
+  imgLoaded(value) {
+    console.log(value);
+    this.shouldDisplay = true;
+  }
 }

@@ -4,6 +4,10 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppService } from './shared/services/app.service';
+import { PWAService } from './shared/services/pwa.service';
+
+import localeHU from '@angular/common/locales/hu';
+import { registerLocaleData } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -39,8 +43,10 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private app: AppService,
+    public pwa: PWAService,
     private statusBar: StatusBar
   ) {
+    registerLocaleData(localeHU, 'hu');
     this.initializeApp();
   }
 
