@@ -20,6 +20,8 @@ export class ProgramPage implements OnInit {
   id: string;
   program: Program;
 
+  offest: any;
+
   constructor(private route: ActivatedRoute, public pwa: PWAService, public data: DataService, private toastController: ToastController, public fetcher: FetcherService<Program[]>) { }
 
   ngOnInit() {
@@ -34,6 +36,11 @@ export class ProgramPage implements OnInit {
       this.fetcher.register('#backend#/api/programs').subscribe(programs => {
         console.log('GOT', programs);
         this.program = programs.filter(p => p.id === this.id)[0];
+
+        this.offest = this.calcOffset();
+        if (this.offest === 6) {
+          this.offest = false;
+        }
       });
    });
   }
@@ -77,6 +84,20 @@ export class ProgramPage implements OnInit {
       }
     });
     toast.present();
+  }
+
+  goToUrl(url: string) {
+    window.open(url, '_blank');
+  }
+
+  calcOffset() {
+    let items = 0;
+    if (this.program.social_Web) { items++; }
+    if (this.program.social_Facebook) { items++; }
+    if (this.program.social_Instagram) { items++; }
+    if (this.program.social_Youtube) { items++; }
+    if (this.program.social_Twitter) { items++; }
+    return (12 - items * 2) / 2;
   }
 
 }

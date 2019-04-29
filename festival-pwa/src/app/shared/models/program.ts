@@ -8,12 +8,12 @@ export class Program {
     description?: string;
     tags?: string;
     location?: string;
-    social_web?: string;
-    social_instagram?: string;
-    social_facebook?: string;
-    social_twitter?: string;
-    social_youtube?: string;
-    social_spotify?: string;
+    social_Web?: string;
+    social_Instagram?: string;
+    social_Facebook?: string;
+    social_Twitter?: string;
+    social_Youtube?: string;
+    social_Spotify?: string;
     spotify_playlist?: string;
     start_Time?: Date;
     end_Time?: Date;

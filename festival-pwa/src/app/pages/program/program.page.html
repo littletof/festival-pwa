@@ -44,14 +44,15 @@
                 <ion-icon name="pin" slot="start" color="secondary"></ion-icon>
                 <ion-label>Telekom Nagyszínpad</ion-label>
               </ion-item>
-              <ion-item>
+              <ion-item *ngIf="this.offest">
                 <ion-grid class="p0">
-                  <ion-row >
-                    <ion-col class="p0 social-icon" size="2" offset="1"><ion-icon name="globe" color="secondary"></ion-icon></ion-col>
-                    <ion-col class="p0 social-icon" size="2"><ion-icon name="logo-facebook" color="secondary"></ion-icon></ion-col>
-                    <ion-col class="p0 social-icon" size="2"><ion-icon name="logo-instagram" color="secondary"></ion-icon></ion-col>
-                    <ion-col class="p0 social-icon" size="2"><ion-icon name="logo-twitter" color="secondary"></ion-icon></ion-col>
-                    <ion-col class="p0 social-icon" size="2"><ion-icon name="logo-youtube" color="secondary"></ion-icon></ion-col>
+                  <ion-row>
+                    <ion-col size="0" [offset]="this.offest"></ion-col>
+                    <ion-col *ngIf="program.social_Web" class="p0 social-icon" size="2" (click)="goToUrl(program.social_Web)"><ion-icon name="globe" color="secondary"></ion-icon></ion-col>
+                    <ion-col *ngIf="program.social_Facebook" class="p0 social-icon" size="2" (click)="goToUrl(program.social_Facebook)"><ion-icon name="logo-facebook" color="secondary"></ion-icon></ion-col>
+                    <ion-col *ngIf="program.social_Instagram" class="p0 social-icon" size="2" (click)="goToUrl(program.social_Instagram)"><ion-icon name="logo-instagram" color="secondary"></ion-icon></ion-col>
+                    <ion-col *ngIf="program.social_Twitter" class="p0 social-icon" size="2" (click)="goToUrl(program.social_Twitter)"><ion-icon name="logo-twitter" color="secondary"></ion-icon></ion-col>
+                    <ion-col *ngIf="program.social_Youtube" class="p0 social-icon" size="2" (click)="goToUrl(program.social_Youtube)"><ion-icon name="logo-youtube" color="secondary"></ion-icon></ion-col>
                   </ion-row>
                 </ion-grid>  
               </ion-item>

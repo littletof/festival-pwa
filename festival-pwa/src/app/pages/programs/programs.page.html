@@ -32,11 +32,29 @@
 
     <ion-grid>
         <ion-row>
-            <ion-col *ngFor="let program of programs" size="6" sizeLg="4">
+            <ion-col *ngFor="let program of shownPrograms" size="6" sizeLg="4">
               <app-program-tile [program]="program" [id]="program.id"></app-program-tile>
             </ion-col>
         </ion-row>
       </ion-grid>
+
+      <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content
+          loadingSpinner="bubbles"
+          loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+
+
+<!--       <ion-grid>
+        <ion-row>
+            <ion-col *ngFor="let program of programs" size="6" sizeLg="4">
+              <app-program-tile [program]="program" [id]="program.id"></app-program-tile>
+            </ion-col>
+        </ion-row>
+      </ion-grid> -->
+
+
       <!-- <ion-grid [virtualScroll]="programs">
         <ion-row>
           <ion-virtual-scroll [items]="programs"> 
