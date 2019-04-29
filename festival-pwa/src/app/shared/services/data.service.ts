@@ -91,7 +91,7 @@ export class DataService {
     return cache;
   }
 
-  getImageURL(url: string, useCache: boolean = true): Observable<string> {
+  getImageURL(url: string, useCache: boolean = true, forceHttpGet: boolean = false): Observable<string> {
     if (!url) {
       return of(null);
     }
@@ -108,7 +108,7 @@ export class DataService {
         urlObs.next(URL.createObjectURL(data));
       } else {
 
-        if (!this.settings.getData(this.settings.settings_do_not_download_images)) {
+        if (!this.settings.getData(this.settings.settings_do_not_download_images) || forceHttpGet) {
 
           this.http.get(url, { responseType: 'blob' }).subscribe(imageBlob => {
             set(url, imageBlob, this.imageStore);

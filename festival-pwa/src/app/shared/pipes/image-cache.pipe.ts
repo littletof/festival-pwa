@@ -16,7 +16,7 @@ export class ImageCachePipe implements PipeTransform {
     const p = new BehaviorSubject<string>(null);
 
     // p.next('https://via.placeholder.com/140x120'); this.san.bypassSecurityTrustResourceUrl(
-    this.requireImage(this.data.placeholderImageUrl, qualityFirst, p);
+    this.requireImage(this.data.placeholderImageUrl, qualityFirst, p, true);
 
     if (!this.app.isOnline && !this.settings.getData(this.settings.settings_do_not_download_images)) {
       this.whenOnlineTryAgain(value, qualityFirst, p);
@@ -43,13 +43,14 @@ export class ImageCachePipe implements PipeTransform {
       if (qualityFirst) {
         const notLight = this.settings.getData(this.settings.settings_not_lite_mode);
         if (notLight) {
-          this.data.getImageURL(value).subscribe(url => p.next(url));
+          this.data.getImageURL(value, true, forceHttpGet).subscribe(url => p.next(url));
           value = value.replace('w360', 'original');
         }
       }
-      this.data.getImageURL(value).subscribe(url => p.next(url));
+      this.data.getImageURL(value, true, forceHttpGet).subscribe(url => p.next(url));
     } else {
       console.error('Null value url into imageCachePipe');
     }
   }
+  // TODO kell bele a forcehttpget, csak kimaradt a defaultnál....
 }
