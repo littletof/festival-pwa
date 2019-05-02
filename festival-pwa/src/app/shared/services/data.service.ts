@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Store, get, set, keys, clear} from 'idb-keyval';
-import { LocalStorageData, ProgData } from '../models/data';
+import { CachedData, ProgData, HashedData } from '../models/data';
 import { AppService } from './app.service';
 import { SettingsService } from './settings.service';
 
@@ -14,13 +14,20 @@ export class DataService {
 
   public placeholderImageUrl = 'https://widget.szigetfestival.com/imgproxy/5c7e898c1b4f8_w360.jpg';
   private imageStore = new Store('FestApp', 'Images');
+  // needs a different db right now.
+  // https://github.com/jakearchibald/idb-keyval/issues/31
+  private jsonStore = new Store('FestApp2', 'Api');
 
   constructor(private http: HttpClient, private app: AppService, public settings: SettingsService) { }
 
   clearAllDataCache() {
+    const favs = this.settings.getFavorites();
     localStorage.clear();
     this.clearImageCache();
+    clear(this.jsonStore);
     // legyen lista több db name és azon iteráljon végig
+
+    this.settings.saveData(this.settings.favourites_list, favs);
   }
 
   async clearImageCache() {
@@ -37,20 +44,34 @@ export class DataService {
 
   }
 
-  lsGetItem<T = any>(key: string): LocalStorageData<T> {
+  lsGetItem<T = any>(key: string): CachedData<T> {
     const data = localStorage.getItem(key);
     if (!data) {
        return null;
     }
 
-    const pData: LocalStorageData<T> = JSON.parse(data);
+    const pData: CachedData<T> = JSON.parse(data);
     pData.cacheDate = new Date(pData.cacheDate);
 
     return pData;
   }
 
   lsSetItem<T>(key: string, data: T) {
-    localStorage.setItem(key, JSON.stringify({data: data, cacheDate: new Date()} as LocalStorageData<T>));
+    localStorage.setItem(key, JSON.stringify({data: data, cacheDate: new Date()} as CachedData<T>));
+  }
+
+  async getCachedData<T = any>(key: string): Promise<CachedData<T>> {
+    const data = await get(key, this.jsonStore) as CachedData<T>;
+    if (!data) {
+        return null;
+    }
+    /*const pData: CachedData<T> = JSON.parse(data);
+    pData.cacheDate = new Date(pData.cacheDate);*/
+    return data;
+  }
+
+  saveCachedData(key: string, value: any): Promise<void> {
+    return set(key, {data: value, cacheDate: new Date()}, this.jsonStore);
   }
 
   cacheFreshEnough(cDate: Date): boolean {
@@ -61,31 +82,35 @@ export class DataService {
     const cache: BehaviorSubject<ProgData<T>> = new BehaviorSubject<ProgData<T>>(null);
 
     if (useCache) {
-        const cachedResponse = this.lsGetItem(url);
-        if (cachedResponse) {
-          const cacheUpToDate = this.cacheFreshEnough(cachedResponse.cacheDate) || !this.app.isOnline;
-          console.log('replay cached', cachedResponse);
+        // const cachedResponse = this.lsGetItem(url);
+        this.getCachedData(url).then(cachedResponse => {
+          if (cachedResponse) {
+            const cacheUpToDate = this.cacheFreshEnough(cachedResponse.cacheDate) || !this.app.isOnline;
+            console.log('replay cached', cachedResponse);
 
-          cache.next({src: 'cache', payload: cachedResponse.data, cacheDate: cachedResponse.cacheDate, wontFetch: cacheUpToDate});
+            cache.next({src: 'cache', payload: cachedResponse.data, cacheDate: cachedResponse.cacheDate, wontFetch: cacheUpToDate});
 
-          if (allowJustCache && cacheUpToDate) {
-            console.log('Cache fresh enough, not fetching');
-            return cache;
+            if (allowJustCache && cacheUpToDate) {
+              console.log('Cache fresh enough, not fetching');
+              return;
+            }
           }
-        }
-    }
-
-    if (this.app.isOnline) {
-        this.http.get<T>(url).subscribe(o => {
-            console.log('next fresh', o);
-            cache.next({src: 'web', payload: o});
-            this.lsSetItem(url, o);
-          },
-          error => {
-            console.log('Couldn\'t fetch fresh data', error);
-            cache.next({wontFetch: true, error: error, src: 'web'});
+          console.log('still gets it');
+          if (this.app.isOnline) {
+            this.http.get<T>(url).subscribe(o => {
+                console.log('next fresh', o);
+                cache.next({src: 'web', payload: o});
+                // this.lsSetItem(url, o);
+                // TODO
+                this.saveCachedData(url, o);
+              },
+              error => {
+                console.log('Couldn\'t fetch fresh data', error);
+                cache.next({wontFetch: true, error: error, src: 'web'});
+              }
+            );
           }
-        );
+        });
     }
 
     return cache;

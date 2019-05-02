@@ -9,6 +9,8 @@ export class SettingsService {
   settings_not_lite_mode = 'settings_not_lite_mode';
   settings_do_not_download_images = 'settings_do_not_download_images';
 
+  favourites_list = 'favourites';
+
   constructor() { }
 
   saveData(key: string, data: any) {
@@ -21,5 +23,25 @@ export class SettingsService {
 
   removeData(key: string) {
     localStorage.removeItem(key);
+  }
+
+  getFavorites(): string[] {
+    return this.getData(this.favourites_list) || [];
+  }
+
+  addFavorite(id: string) {
+    this.removeFavorite(id);
+    let favs = this.getData(this.favourites_list) as string[];
+    favs = favs.concat(id);
+    this.saveData(this.favourites_list, favs);
+  }
+
+  removeFavorite(id: string) {
+    const favs = this.getFavorites();
+    const ind = favs.indexOf(id);
+    if (ind !== -1) {
+      favs.splice(ind, 1);
+    }
+    this.saveData(this.favourites_list, favs);
   }
 }

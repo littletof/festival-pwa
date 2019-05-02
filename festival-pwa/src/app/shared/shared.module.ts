@@ -4,6 +4,7 @@ import { NewsCardComponent } from './components/news-card/news-card.component';
 import { IonicModule } from '@ionic/angular';
 import { OnlineStatusComponent } from './components/online-status/online-status.component';
 import { ImageCachePipe } from './pipes/image-cache.pipe';
+import { FavoritePipe } from './pipes/favorite.pipe';
 
 @NgModule({
   imports: [
@@ -14,11 +15,13 @@ import { ImageCachePipe } from './pipes/image-cache.pipe';
     NewsCardComponent,
     OnlineStatusComponent,
     ImageCachePipe,
+    FavoritePipe,
   ],
   exports: [
     NewsCardComponent,
     OnlineStatusComponent,
     ImageCachePipe,
+    FavoritePipe,
   ]
 })
 export class SharedModule { }

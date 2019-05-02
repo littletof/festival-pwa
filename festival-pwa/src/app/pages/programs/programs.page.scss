@@ -8,4 +8,14 @@
       width: 10%;
       height: 10%;
     }
+}
+
+.search-container{
+  transition: max-height 1s;
+  max-height: 0px;
+  overflow: hidden;
+
+  &.active {
+    max-height: 100px;
   }
+}

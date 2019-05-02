@@ -11,7 +11,7 @@ export class HashedData<T> {
     hash: number;
 }
 
-export class LocalStorageData<T> {
+export class CachedData<T> {
     data: T;
     cacheDate: Date;
 }
