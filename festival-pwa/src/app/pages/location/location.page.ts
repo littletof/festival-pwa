@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { PWAService } from 'src/app/shared/services/pwa.service';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from 'src/app/shared/services/data.service';
@@ -8,12 +8,12 @@ import { FetcherService } from 'src/app/shared/services/fetcher.service';
 import { Program } from 'src/app/shared/models/program';
 import { Subscription } from 'rxjs';
 import { Place } from 'src/app/shared/models/place';
+import { AppService } from 'src/app/shared/services/app.service';
 
 @Component({
   selector: 'app-location',
   templateUrl: './location.page.html',
-  styleUrls: ['./location.page.scss'],
-  providers: [FetcherService]
+  styleUrls: ['./location.page.scss']
 })
 export class LocationPage implements OnInit {
 
@@ -24,9 +24,16 @@ export class LocationPage implements OnInit {
   id: string;
 
   place: Place;
+  fetcher: FetcherService<Place[]>;
+
+  programs: Program[];
+  programFetcher: FetcherService<Program[]>;
 
   constructor(private route: ActivatedRoute, public pwa: PWAService, public data: DataService, public settings: SettingsService,
-    private toastController: ToastController, public fetcher: FetcherService<Place[]>, public progFetcher: FetcherService<Program[]>) { }
+    public app: AppService, private toastController: ToastController) {
+      this.fetcher = new FetcherService<Place[]>(data, app);
+      this.programFetcher = new FetcherService<Program[]>(data, app);
+    }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -34,18 +41,26 @@ export class LocationPage implements OnInit {
 
       this.fetcher.register('#backend#/api/places').subscribe(places => {
         if (places) {
-          console.log('GOT', this.id, places);
           // tslint:disable-next-line:triple-equals
           this.place = places.filter(p => p.placeId === this.id)[0];
           if (this.place == null) {
             window.history.back();
           }
+          this.slider.update();
         }
       });
 
-      this.progFetcher.register('#backend#/api/programs').subscribe(progs => {
-        console.log(progs);
-      })
+      this.programFetcher.register('#backend#/api/programs').subscribe((progs: Program[]) => {
+        if (progs) {
+          this.programs = progs.filter(p => p.placeId === this.id).sort((p1, p2) => new Date(p1.start_Time).getTime() - new Date(p2.start_Time).getTime() );
+          this.programs.map((program, index, array) => {
+            const prevProg =  index === 0 ? null : array[index - 1];
+            const newDate = this.isNewDate(prevProg, program);
+            (program as any).onNewDate = newDate;
+            return program;
+          });
+        }
+      });
    });
   }
 
@@ -59,6 +74,19 @@ export class LocationPage implements OnInit {
 
   home() {
     this.slider.slideTo(0);
+  }
+
+  isNewDate(prevprog: Program, program: Program) {
+    if (prevprog == null) {
+      return true;
+    }
+    const actDate = new Date(program.start_Time);
+    actDate.setHours(actDate.getHours() - 8);
+
+    const prevDate = new Date(prevprog.start_Time);
+    prevDate.setHours(prevDate.getHours() - 8);
+
+    return actDate.getDay() !== prevDate.getDay();
   }
 
 }

@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { HashedData } from '../models/data';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Type } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class FetcherService<T> {
   actualGet: Subscription;
   onlineSub: Subscription;
 
-  constructor(private data: DataService, public app: AppService) {
+  constructor(public data: DataService, public app: AppService) {
     console.log('construct fetcher');
   }
 

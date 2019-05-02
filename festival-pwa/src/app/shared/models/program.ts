@@ -20,4 +20,5 @@ export class Program {
     start_Time?: Date;
     end_Time?: Date;
 
+    onNewDate?: boolean;
 }

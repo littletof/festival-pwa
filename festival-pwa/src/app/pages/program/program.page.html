@@ -38,7 +38,7 @@
           <ion-list>
               <ion-item>
                 <ion-icon name="calendar" slot="start" color="secondary"></ion-icon>
-                <ion-label>{{program.start_Time | date:'EEEE HH:mm':'':'hu'}} - {{program.end_Time | date:'HH:mm'}}</ion-label>
+                <ion-label>{{program.start_Time | date:'EEEE HH:mm':'+0000':'hu'}} - {{program.end_Time | date:'HH:mm':'+0000'}}</ion-label>
               </ion-item>
               <ion-item routerLink="/location/{{program.placeId}}" *ngIf="program.placeId !== '0'">
                 <ion-icon name="pin" slot="start" color="secondary"></ion-icon>

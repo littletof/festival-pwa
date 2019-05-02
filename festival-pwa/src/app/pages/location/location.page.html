@@ -119,11 +119,20 @@
 
 
 </ion-slide>
-<ion-slide>
-  <h1>Slide 2</h1>
-</ion-slide>
-<ion-slide>
-    <h1>Slide 3</h1>
+<ion-slide style="width: 100%">
+  <ion-grid class="p0">
+    <ion-row>
+      <ion-col *ngFor="let program of programs; let i = index" size="12" class="p0" routerLink="/program/{{program.id}}">
+        <ion-item *ngIf="program.onNewDate" color="secondary">
+          {{program.start_Time | date: 'MM.dd EEEE':'+0000':'hu'}}
+        </ion-item>
+        <ion-item>
+          <span class="date-span">{{program.start_Time | date: 'HH:mm':'+0000'}} <br> {{program.end_Time | date: 'HH:mm':'+0000'}}</span> 
+          {{program.title}}
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-slide>
 </ion-slides>
 </ion-content>
