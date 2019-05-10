@@ -85,7 +85,7 @@
                 <ion-label>Leírás</ion-label>
             </ion-list-header>
             <ion-item *ngIf="program?.description">
-              {{program.description}}
+              <span [innerHtml]="program.description"></span>
             </ion-item>
 
           </ion-list>

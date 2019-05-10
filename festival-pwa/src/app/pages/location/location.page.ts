@@ -18,6 +18,7 @@ import { AppService } from 'src/app/shared/services/app.service';
 export class LocationPage implements OnInit {
 
   @ViewChild('slider') slider: any;
+  @ViewChild('slidernews') slidernews: any;
   activeSlide = 0;
 
   sub: Subscription;
@@ -28,6 +29,8 @@ export class LocationPage implements OnInit {
 
   programs: Program[];
   programFetcher: FetcherService<Program[]>;
+
+  favorites: string[];
 
   constructor(private route: ActivatedRoute, public pwa: PWAService, public data: DataService, public settings: SettingsService,
     public app: AppService, private toastController: ToastController) {
@@ -47,6 +50,7 @@ export class LocationPage implements OnInit {
             window.history.back();
           }
           this.slider.update();
+          this.slidernews.update();
         }
       });
 
@@ -59,6 +63,8 @@ export class LocationPage implements OnInit {
             (program as any).onNewDate = newDate;
             return program;
           });
+
+          this.favorites = this.settings.getFavorites();
         }
       });
    });
@@ -87,6 +93,14 @@ export class LocationPage implements OnInit {
     prevDate.setHours(prevDate.getHours() - 8);
 
     return actDate.getDay() !== prevDate.getDay();
+  }
+
+  checkIsFavourite(internalId) {
+    return this.favorites.indexOf(internalId) !== -1;
+  }
+
+  ionViewWillEnter() {
+    this.favorites = this.settings.getFavorites();
   }
 
 }

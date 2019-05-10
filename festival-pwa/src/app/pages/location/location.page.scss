@@ -19,6 +19,18 @@
 .date-span {
     margin-right: 20px;
 }
+
+.program-favorite{
+    border-left-width: 8px;
+    border-left-style: solid;
+    border-left-color: var(--ion-color-warning);
+
+    --padding-start: 6px;
+    border-radius: 5px 0 0 5px;
+    margin-left: 2px;  
+}
+
+
 //-------------- vvv FROM PROGRAMS PAGE vvv --------
 
 

@@ -32,7 +32,7 @@ export class ProgramsPage implements OnInit, OnDestroy {
   showPrograms() {
     if (this.programs) {
       const startSlice = this.shownPrograms.length;
-      const toShow = this.programs.filter(this.searchFilter, this).slice(startSlice, startSlice + 16);
+      const toShow = this.programs.filter(this.searchFilter, this).slice(startSlice, startSlice + 21);
       this.shownPrograms = (this.shownPrograms || []).concat(toShow);
     }
   }
