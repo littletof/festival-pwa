@@ -10,7 +10,7 @@ import { Program } from 'src/app/shared/models/program';
 export class ProgramTileComponent implements OnInit {
 
   @Input() id: number;
-  @Input() program: any;
+  @Input() program: Program;
 
   shouldDisplay: boolean;
 

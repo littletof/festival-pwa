@@ -8,6 +8,7 @@ export class SettingsService {
   lastOnlineKey = 'settings_last_online_date';
   settings_not_lite_mode = 'settings_not_lite_mode';
   settings_do_not_download_images = 'settings_do_not_download_images';
+  settings_has_management_access = 'settings_has_management_access';
 
   favourites_list = 'favourites';
 

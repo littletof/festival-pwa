@@ -29,4 +29,16 @@ ion-card>ion-card-content{
     text-align: left;
     overflow: hidden;
     text-overflow: ellipsis;
+    max-height: 100px;
+
+    
+    &>div{
+        padding-left: 10px;
+        line-height: 15px;
+        word-break: break-word;
+    }
+}
+
+.full-width {
+    width: 95%;
 }

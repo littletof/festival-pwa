@@ -18,6 +18,9 @@ const routes: Routes = [
   { path: 'info', loadChildren: './pages/info/info.module#InfoPageModule' },
   { path: 'settings', loadChildren: './pages/settings/settings.module#SettingsPageModule' },
   { path: 'location/:id', loadChildren: './pages/location/location.module#LocationPageModule' },
+  { path: 'management/:id', loadChildren: './pages/management/management.module#ManagementPageModule' },
+  { path: 'management', loadChildren: './pages/management/management.module#ManagementPageModule' },
+
 
 
 ];

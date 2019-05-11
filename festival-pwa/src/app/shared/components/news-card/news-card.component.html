@@ -1,4 +1,4 @@
-<ion-card [ngClass]="{'priority': priority}" class="{{priority}}">
+<ion-card [ngClass]="{'priority': priority}" class="{{priority}}  full-width">
     <ion-item>
       <ion-icon *ngIf="priority" [color]="priority" slot="start" name="warning"></ion-icon>
       
@@ -7,6 +7,6 @@
     </ion-item>
   
     <ion-card-content>
-      {{content}}
+      <div [innerHTML]="content"></div>
     </ion-card-content>
 </ion-card>

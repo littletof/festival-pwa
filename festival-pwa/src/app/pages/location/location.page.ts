@@ -9,6 +9,7 @@ import { Program } from 'src/app/shared/models/program';
 import { Subscription } from 'rxjs';
 import { Place } from 'src/app/shared/models/place';
 import { AppService } from 'src/app/shared/services/app.service';
+import { NewsItem } from 'src/app/shared/models/newsitem';
 
 @Component({
   selector: 'app-location',
@@ -30,12 +31,16 @@ export class LocationPage implements OnInit {
   programs: Program[];
   programFetcher: FetcherService<Program[]>;
 
+  news: NewsItem[];
+  newsFetcher: FetcherService<NewsItem[]>;
+
   favorites: string[];
 
   constructor(private route: ActivatedRoute, public pwa: PWAService, public data: DataService, public settings: SettingsService,
     public app: AppService, private toastController: ToastController) {
       this.fetcher = new FetcherService<Place[]>(data, app);
       this.programFetcher = new FetcherService<Program[]>(data, app);
+      this.newsFetcher = new FetcherService<NewsItem[]>(data, app);
     }
 
   ngOnInit() {
@@ -49,8 +54,8 @@ export class LocationPage implements OnInit {
           if (this.place == null) {
             window.history.back();
           }
+          this.filterNews();
           this.slider.update();
-          this.slidernews.update();
         }
       });
 
@@ -83,6 +88,7 @@ export class LocationPage implements OnInit {
   }
 
   isNewDate(prevprog: Program, program: Program) {
+    // TODO hónapokon átívelve nem megy
     if (prevprog == null) {
       return true;
     }
@@ -97,6 +103,23 @@ export class LocationPage implements OnInit {
 
   checkIsFavourite(internalId) {
     return this.favorites.indexOf(internalId) !== -1;
+  }
+
+  filterNews() {
+    this.newsFetcher.register('#backend#/api/news').subscribe(news => {
+      if (news) {
+        this.news = news.filter(n => {
+            const placeTags = JSON.parse(n.placeTags);
+            // program tagelve
+            if (placeTags.indexOf(this.place.placeId) !== -1) {
+              return true;
+            }
+        });
+        if (this.news.length) {
+          setTimeout(() => this.slidernews.update(), 100);
+        }
+      }
+    });
   }
 
   ionViewWillEnter() {

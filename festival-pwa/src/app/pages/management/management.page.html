@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+        <ion-button *ngIf="pwa.updateAvailable" (click)="pwa.refresh()">
+          <ion-icon name="refresh-circle"></ion-icon>
+        </ion-button>
+          <ion-button *ngIf="pwa.canInstall && !pwa.updateAvailable" (click)="pwa.installPWA()">
+            <ion-icon name="download"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+    <ion-title>Management</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-slides #slider [options]="{autoHeight: 'true'}">
+        <ion-slide>
+            <ion-grid class="content-grid">
+                <ion-row>
+                  <ion-col size="12" class="p0">
+                    <app-news-card [title]="title" [content]="content" [priority]="priority"></app-news-card>
+                    <ion-item>
+                        <ion-label position="floating">Cím</ion-label>
+                        <ion-input [(ngModel)]="title"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating">Tartalom</ion-label>
+                        <ion-textarea rows="5" [(ngModel)]="content"></ion-textarea>
+                    </ion-item>
+
+                    <ion-list-header>
+                      <ion-label>Priority</ion-label>
+                    </ion-list-header>
+                    <ion-radio-group [(ngModel)]="priority">    
+                      <ion-item>
+                        <ion-label>Normal</ion-label>
+                        <ion-radio slot="start" value="" checked></ion-radio>
+                      </ion-item>
+                  
+                      <ion-item>
+                        <ion-label>Warning</ion-label>
+                        <ion-radio slot="start" value="warning"></ion-radio>
+                      </ion-item>
+                  
+                      <ion-item>
+                        <ion-label>Danger</ion-label>
+                        <ion-radio slot="start" value="danger"></ion-radio>
+                      </ion-item>
+                    </ion-radio-group>
+
+
+                    <ion-button expand="block" (click)="publishNews()"> 
+                      <ion-icon slot="start" name="man"></ion-icon>
+                      Hír közzététele
+                    </ion-button>
+
+                    <ion-list-header>
+                        <ion-label>Napok</ion-label>
+                    </ion-list-header>
+                    
+                    <ion-chip *ngFor="let day of selectableDays" color="{{isDateSelected(day)? 'tertiary' : undefined}}" outline="{{isDateSelected(day)}}" (click)="toggleDate(day)">
+                        <ion-label>{{day | date : 'EEEE MM.dd'}}</ion-label>
+                      </ion-chip>
+
+                    <ion-list-header>
+                        <ion-label>Helyek</ion-label>
+                    </ion-list-header>
+
+                    <ion-chip *ngFor="let place of places" color="{{isSelected(place.placeId, selectedPlaceTags)? 'danger' : undefined}}" outline="{{isSelected(place.placeId, selectedPlaceTags)}}" (click)="toggle(place.placeId, selectedPlaceTags)">
+                      <ion-label>{{place.name}}</ion-label>
+                    </ion-chip>
+                    
+                    <ion-list-header>
+                        <ion-label>Programok</ion-label>
+                    </ion-list-header>
+
+                    <ion-chip *ngFor="let program of programs" color="{{isSelected(program.internalId, selectedProgramTags)? 'primary' : undefined}}" outline="{{isSelected(program.internalId, selectedProgramTags)}}" (click)="toggle(program.internalId, selectedProgramTags)">
+                      <ion-label>{{program.title}}</ion-label>
+                    </ion-chip>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+      </ion-slide>
+      <ion-slide>
+        <ion-button expand="block" (click)="refreshPrograms()"> 
+            <ion-icon slot="start" name="man"></ion-icon>
+            /api/Maintenance/refreshPrograms
+        </ion-button>
+      </ion-slide>
+    </ion-slides>
+
+</ion-content>

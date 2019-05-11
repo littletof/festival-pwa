@@ -8,6 +8,7 @@ import { PWAService } from './shared/services/pwa.service';
 
 import localeHU from '@angular/common/locales/hu';
 import { registerLocaleData } from '@angular/common';
+import { SettingsService } from './shared/services/settings.service';
 
 @Component({
   selector: 'app-root',
@@ -20,12 +21,12 @@ export class AppComponent {
     {
       title: 'Hírek',
       url: '/',
-      icon: 'home'
+      icon: 'paper'
     },
     {
       title: 'Programok',
       url: '/programs',
-      icon: 'paper'
+      icon: 'book'
     },
     {
       title: 'Infó',
@@ -44,17 +45,25 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private app: AppService,
     public pwa: PWAService,
-    private statusBar: StatusBar
+    public settings: SettingsService,
+    private statusBar: StatusBar,
   ) {
     registerLocaleData(localeHU, 'hu');
     this.initializeApp();
   }
 
   initializeApp() {
+    if (this.settings.getData(this.settings.settings_has_management_access)) {
+      this.appPages.push({
+        title: 'Management',
+        url: '/management',
+        icon: 'bug'
+      });
+    }
     this.version = this.app.getVersion().version;
-    this.platform.ready().then(() => {
+    /*this.platform.ready().then(() => {
       // this.statusBar.styleDefault();
       this.splashScreen.hide();
-    });
+    });*/
   }
 }

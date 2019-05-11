@@ -78,24 +78,18 @@
       </ion-col>
       <ion-col size="12" sizeLg="6">
         <ion-list>
-            <ion-list-header>
-              <ion-label>Hírek</ion-label>
-            </ion-list-header>
-            <ion-item class="light-bg">
-
-                <ion-slides #slidernews pager="true">
-                    <ion-slide>
-                        <app-news-card priority="danger" title="Esős időjárás" content="Kedves VOLTozók! Várhatóan esős esténk lesz, mindenképp hozzatok esőkabátot és öltözzetek melegen! 💦"></app-news-card>
-                    </ion-slide>
-                    <ion-slide>
-                        <app-news-card title="Program ajánló" moreButton="true" content="Ma este Iron Maiden! 😉 😎 De előtte és utána is sok sok program közül választhattok, koncerteket ..."></app-news-card>
-                    </ion-slide>
-                    <ion-slide>
-                        <app-news-card priority="warning" title="Programváltozás" content="A Rudimental DJ Set 2-kor kezdődik! Érezzétek jól magatokat! 😉"></app-news-card>
-                    </ion-slide>
+            <ion-list-header *ngIf="news?.length > 0">
+                <ion-label>Hírek</ion-label>
+              </ion-list-header>
+              <ion-item class="light-bg p0" *ngIf="news?.length > 0">
+  
+                  <ion-slides  #slidernews pager="true" style="width: 100%">
+                      <ion-slide *ngFor="let n of news">
+                          <app-news-card [priority]="n.priority" [title]="n.title" [content]="n.content" style="width: 90%"></app-news-card>
+                      </ion-slide>
                   </ion-slides>
-
-            </ion-item>
+  
+              </ion-item>
 
             <ion-list-header *ngIf="place?.description">
                 <ion-label>Leírás</ion-label>
@@ -122,7 +116,7 @@
         <ion-item *ngIf="program.onNewDate" color="secondary">
           {{program.start_Time | date: 'MM.dd EEEE':'+0000':'hu'}}
         </ion-item>
-        <ion-item routerLink="/program/{{program.id}}" [ngClass]="{'program-favorite': checkIsFavourite(program.internalId)}">
+        <ion-item routerLink="/program/{{program.internalId}}" [ngClass]="{'program-favorite': checkIsFavourite(program.internalId)}">
           
             <span class="date-span">{{program.start_Time | date: 'HH:mm':'+0000'}} <br> {{program.end_Time | date: 'HH:mm':'+0000'}}</span> 
             {{program.title}}

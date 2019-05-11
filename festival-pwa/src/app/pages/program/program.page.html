@@ -62,22 +62,16 @@
       </ion-col>
       <ion-col size="12" sizeLg="6">
         <ion-list>
-            <ion-list-header>
+            <ion-list-header *ngIf="news?.length > 0">
               <ion-label>Hírek</ion-label>
             </ion-list-header>
-            <ion-item class="light-bg">
+            <ion-item class="light-bg p0" *ngIf="news?.length > 0">
 
-                <ion-slides pager="true">
-                    <ion-slide>
-                        <app-news-card priority="danger" title="Esős időjárás" content="Kedves VOLTozók! Várhatóan esős esténk lesz, mindenképp hozzatok esőkabátot és öltözzetek melegen! 💦"></app-news-card>
+                <ion-slides pager="true" style="width: 100%">
+                    <ion-slide *ngFor="let n of news">
+                        <app-news-card [priority]="n.priority" [title]="n.title" [content]="n.content" style="width: 100%"></app-news-card>
                     </ion-slide>
-                    <ion-slide>
-                        <app-news-card title="Program ajánló" moreButton="true" content="Ma este Iron Maiden! 😉 😎 De előtte és utána is sok sok program közül választhattok, koncerteket ..."></app-news-card>
-                    </ion-slide>
-                    <ion-slide>
-                        <app-news-card priority="warning" title="Programváltozás" content="A Rudimental DJ Set 2-kor kezdődik! Érezzétek jól magatokat! 😉"></app-news-card>
-                    </ion-slide>
-                  </ion-slides>
+                </ion-slides>
 
             </ion-item>
 

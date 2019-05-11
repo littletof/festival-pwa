@@ -1,7 +1,7 @@
 
 <!-- <ion-button class="tile-btn" color="medium">
     <ion-ripple-effect></ion-ripple-effect> -->
-    <ion-card routerLink="/program/{{id}}" color="medium">
+    <ion-card routerLink="/program/{{program.internalId}}" color="medium">
       <ion-card-content> 
           <ion-img class="program-image no-select" [src]="program.image | imageCache:true | async"></ion-img>
           <!-- <ion-img class="program-image no-select" [src]="program.image | imageCache | async" (ionImgDidLoad)="imgLoaded($event)"></ion-img> -->

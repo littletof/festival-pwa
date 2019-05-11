@@ -6,4 +6,7 @@ export class NewsItem {
     content?: string;
     priority?: string;
     published?: Date;
+    placeTags?: string; // string[] json
+    programTags?: string; // string[] json
+    dateTags?: string; // Date[] json
 }
