@@ -28,7 +28,7 @@ export class LocationPage implements OnInit {
   place: Place;
   fetcher: FetcherService<Place[]>;
 
-  programs: Program[];
+  programs: (Program & {start_Time: Date, end_Time: Date})[];
   programFetcher: FetcherService<Program[]>;
 
   news: NewsItem[];
@@ -61,7 +61,22 @@ export class LocationPage implements OnInit {
 
       this.programFetcher.register('#backend#/api/programs').subscribe((progs: Program[]) => {
         if (progs) {
-          this.programs = progs.filter(p => p.placeId === this.id).sort((p1, p2) => new Date(p1.start_Time).getTime() - new Date(p2.start_Time).getTime() );
+          const fetchedProgs = progs;
+
+          this.programs = [];
+          for (const prog of fetchedProgs) {
+            prog.event_Time = JSON.parse(prog.event_Time as unknown as string);
+
+            prog.event_Time = prog.event_Time.map(o => {
+              return {start: new Date(o.start), end: new Date(o.end)};
+            });
+
+            for (const ev of prog.event_Time) {
+              this.programs.push({...prog, start_Time: ev.start, end_Time: ev.end});
+            }
+          }
+
+          this.programs = this.programs.filter(p => p.placeId === this.id).sort((p1, p2) => new Date(p1.start_Time).getTime() - new Date(p2.start_Time).getTime() );
           this.programs.map((program, index, array) => {
             const prevProg =  index === 0 ? null : array[index - 1];
             const newDate = this.isNewDate(prevProg, program);
@@ -87,7 +102,7 @@ export class LocationPage implements OnInit {
     this.slider.slideTo(0);
   }
 
-  isNewDate(prevprog: Program, program: Program) {
+  isNewDate(prevprog: (Program & {start_Time: Date, end_Time: Date}), program: (Program & {start_Time: Date, end_Time: Date})) {
     // TODO hónapokon átívelve nem megy
     if (prevprog == null) {
       return true;

@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>map</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <agm-map [latitude]="lat" [longitude]="lng" [streetViewControl]="false" [zoom]="15" mapTypeId="satellite" [rotateControl]="true">
+      
+      <agm-overlay
+          [latitude]  = "lat"
+          [longitude] = "lng"
+          [bounds] = "{x:{latitude:-0.0026,longitude:-0.0046},y:{latitude:0.0026,longitude:0.0046}}"
+          >
+          <!-- blue html square -->
+          <div style="vertical-align: middle; transform: rotate(-90deg);">
+              <img [src]="'https://widget.szigetfestival.com/imgproxy/map/alap__20180619_app_1529406066.jpg'" 
+              style="width: 100%;opacity: 1; position: relative; top: 50%; transform: translateY(-50%);">
+          </div>
+      </agm-overlay>
+      <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+    </agm-map>
+
+</ion-content>

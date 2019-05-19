@@ -29,6 +29,11 @@ export class AppComponent {
       icon: 'book'
     },
     {
+      title: 'Térkép',
+      url: '/map',
+      icon: 'map'
+    },
+    {
       title: 'Infó',
       url: '/info',
       icon: 'information-circle'

@@ -61,13 +61,15 @@ export class ManagementPage implements OnInit {
       this.programs = programs;
 
       if (programs != null) {
-          this.selectableDays = this.filterUniqueDates(this.programs.map(p => {
-            const d = new Date(p.start_Time);
-            d.setHours(0, 0, 0, 0);
-            return d;
-          })).sort((a, b) => a.getTime() - b.getTime());
+          this.selectableDays = this.filterUniqueDates([].concat(...this.programs.map(p => {
 
-          console.log(this.selectableDays);
+            p.event_Time = JSON.parse(p.event_Time as unknown as string);
+            p.event_Time = p.event_Time.map(o => {
+              return {start: new Date(o.start), end: new Date(o.end)};
+            });
+
+            return p.event_Time.map(t => {t.start.setHours(0, 0, 0, 0); return t.start; });
+          }))).sort((a, b) => a.getTime() - b.getTime());
       }
     });
   }

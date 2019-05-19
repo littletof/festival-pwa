@@ -17,8 +17,9 @@ export class Program {
     social_Youtube?: string;
     social_Spotify?: string;
     spotify_playlist?: string;
-    start_Time?: Date;
-    end_Time?: Date;
+    /*start_Time?: Date;
+    end_Time?: Date;*/
+    event_Time?: {start: Date, end: Date}[];
 
     onNewDate?: boolean;
 }

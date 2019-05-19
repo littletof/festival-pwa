@@ -114,11 +114,11 @@
     <ion-row>
       <ion-col *ngFor="let program of programs; let i = index" size="12" class="p0">
         <ion-item *ngIf="program.onNewDate" color="secondary">
-          {{program.start_Time | date: 'MM.dd EEEE':'+0000':'hu'}}
+          {{program.start_Time | date: 'MM.dd EEEE':'+0200':'hu'}}
         </ion-item>
         <ion-item routerLink="/program/{{program.internalId}}" [ngClass]="{'program-favorite': checkIsFavourite(program.internalId)}">
           
-            <span class="date-span">{{program.start_Time | date: 'HH:mm':'+0000'}} <br> {{program.end_Time | date: 'HH:mm':'+0000'}}</span> 
+            <span class="date-span">{{program.start_Time | date: 'HH:mm':'+0200'}} <br> {{program.end_Time | date: 'HH:mm':'+0200'}}</span> 
             {{program.title}}
           
         </ion-item>

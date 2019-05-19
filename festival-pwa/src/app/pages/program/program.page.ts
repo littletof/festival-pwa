@@ -10,6 +10,7 @@ import { FetcherService } from 'src/app/shared/services/fetcher.service';
 import { SettingsService } from 'src/app/shared/services/settings.service';
 import { NewsItem } from 'src/app/shared/models/newsitem';
 import { AppService } from 'src/app/shared/services/app.service';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-program',
@@ -24,13 +25,15 @@ export class ProgramPage implements OnInit {
   id: string;
   program: Program;
 
+  spotifyLink = null;
+
   offest: any;
 
   news: NewsItem[];
   newsFetcher: FetcherService<NewsItem[]>;
 
   constructor(private route: ActivatedRoute, public pwa: PWAService, public data: DataService, public app: AppService, public settings: SettingsService,
-    private toastController: ToastController, public fetcher: FetcherService<Program[]>) {
+    private toastController: ToastController, public fetcher: FetcherService<Program[]>, public sanetizer: DomSanitizer) {
       this.newsFetcher = new FetcherService<NewsItem[]>(data, app);
     }
 
@@ -46,8 +49,18 @@ export class ProgramPage implements OnInit {
             window.history.back();
           }
 
-          this.program.start_Time = new Date(this.program.start_Time);
-          this.program.end_Time = new Date(this.program.end_Time);
+          this.program.event_Time = JSON.parse(this.program.event_Time as unknown as string);
+
+          this.program.event_Time = this.program.event_Time.map(o => {
+            return {start: new Date(o.start), end: new Date(o.end)};
+          });
+
+          this.program.event_Time.sort((a, b) => {
+            return a.start.getTime() - b.start.getTime();
+          });
+
+          /*this.program.start_Time = new Date(this.program.start_Time);
+          this.program.end_Time = new Date(this.program.end_Time);*/
 
           this.isFavourite = this.checkIsFavourite();
           this.offest = this.calcOffset();
@@ -69,7 +82,7 @@ export class ProgramPage implements OnInit {
             const placeTags = JSON.parse(n.placeTags);
             const programTags = JSON.parse(n.programTags);
 
-            console.log(dateTags, placeTags, programTags);
+            // console.log(dateTags, placeTags, programTags);
 
             // ha nincs tagelve, akkor nem spec hír.
             if (dateTags.length === 0 && placeTags.length === 0 && programTags.length === 0) {
@@ -87,7 +100,7 @@ export class ProgramPage implements OnInit {
             }
 
             // hely tagelve, vagy nincs semmi hely, ÉS dátum illeszkedik.
-            if ((placeTags.indexOf(this.program.placeId) !== -1 || placeTags.length === 0) && dateTags.length > 0 && this.isInDate(dateTags, this.program.start_Time, this.program.end_Time)) {
+            if ((placeTags.indexOf(this.program.placeId) !== -1 || placeTags.length === 0) && dateTags.length > 0 && this.isInDate(dateTags, this.program.event_Time)) {
               return true;
             }
 
@@ -97,22 +110,23 @@ export class ProgramPage implements OnInit {
     });
   }
 
-  isInDate(newsDates: Date[], start: Date, end: Date) {
+  isInDate(newsDates: Date[], dates: {start: Date, end: Date}[]) {
     if (!newsDates || newsDates.length === 0) {
       return false;
     }
 
-    return newsDates.filter(d => {
-      const st = new Date(d);
-      st.setHours(9);
-      const nd = new Date(d);
-      nd.setHours(32);
+    return  dates.filter(evDate => {
+      return newsDates.filter(d => {
+        const st = new Date(d);
+        st.setHours(9);
+        const nd = new Date(d);
+        nd.setHours(32);
 
-      console.log(d);
-      d.setHours(32);
-      console.log(d);
-      console.log(start, end);
-      return start < nd && st < end;
+        /*console.log(st);
+        console.log(nd);
+        console.log(evDate.start, evDate.end);*/
+        return evDate.start < nd && st < evDate.end;
+      }).length > 0;
     }).length > 0;
   }
 
@@ -166,6 +180,17 @@ export class ProgramPage implements OnInit {
 
   goToUrl(url: string) {
     window.open(url, '_blank');
+  }
+
+  getSpotifyLink(): SafeUrl {
+    if (this.program.social_Spotify === 'artistId:') {
+      return;
+    }
+    if (!this.spotifyLink) {
+      const split = this.program.social_Spotify.replace('artistId:', '');
+      this.spotifyLink = this.sanetizer.bypassSecurityTrustResourceUrl('https://open.spotify.com/embed/artist/' + split);
+    }
+    return this.spotifyLink;
   }
 
   calcOffset() {
