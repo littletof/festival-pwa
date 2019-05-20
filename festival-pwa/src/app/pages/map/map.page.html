@@ -1,25 +1,49 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>map</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="programs"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="pwa.updateAvailable" (click)="pwa.refresh()">
+        <ion-icon name="refresh-circle"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="pwa.canInstall && !pwa.updateAvailable" (click)="pwa.installPWA()">
+        <ion-icon name="download"></ion-icon>
+      </ion-button>
+      <ion-button (click)="showFestival()">
+        <ion-icon name="bonfire"></ion-icon>
+      </ion-button>
+      <ion-button (click)="locateUser()">
+        <ion-icon name="locate"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Térkép</ion-title>
   </ion-toolbar>
 </ion-header>
+<app-online-status></app-online-status>
 
 <ion-content>
 
-    <agm-map [latitude]="lat" [longitude]="lng" [streetViewControl]="false" [zoom]="15" mapTypeId="satellite" [rotateControl]="true">
+    <agm-map [latitude]="mapLat" [longitude]="mapLng" [usePanning]="true" [streetViewControl]="false" [zoom]="mapZoom" mapTypeId="satellite" [rotateControl]="true">
       
       <agm-overlay
-          [latitude]  = "lat"
-          [longitude] = "lng"
-          [bounds] = "{x:{latitude:-0.0026,longitude:-0.0046},y:{latitude:0.0026,longitude:0.0046}}"
-          >
-          <!-- blue html square -->
+          [zIndex]="1"
+          [latitude]  = "overlayLat"
+          [longitude] = "overlayLng"
+          [bounds] = "{x:{latitude:-0.0026,longitude:-0.0046},y:{latitude:0.0026,longitude:0.0046}}">
+
           <div style="vertical-align: middle; transform: rotate(-90deg);">
               <img [src]="'https://widget.szigetfestival.com/imgproxy/map/alap__20180619_app_1529406066.jpg'" 
               style="width: 100%;opacity: 1; position: relative; top: 50%; transform: translateY(-50%);">
           </div>
       </agm-overlay>
-      <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+
+      <agm-overlay *ngIf="lat"
+        [latitude]  = "lat"
+        [longitude] = "lng">
+        <div style="width:20px;height:20px;background-color: #26c5ff; border-radius: 10px; transform: translateY(50%); border-width: 3px; border-color: #1950ba; border-style: solid;"></div>
+      </agm-overlay>
+      
     </agm-map>
 
 </ion-content>

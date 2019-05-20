@@ -9,6 +9,7 @@ export class SettingsService {
   settings_not_lite_mode = 'settings_not_lite_mode';
   settings_do_not_download_images = 'settings_do_not_download_images';
   settings_has_management_access = 'settings_has_management_access';
+  settings_requested_user_location = 'settings_has_management_access';
 
   favourites_list = 'favourites';
 
@@ -44,5 +45,13 @@ export class SettingsService {
       favs.splice(ind, 1);
     }
     this.saveData(this.favourites_list, favs);
+  }
+
+  setSessionData(key: string, data: any) {
+    sessionStorage.setItem(key, JSON.stringify(data));
+  }
+
+  getSessionData(key: string): any {
+    return JSON.parse(sessionStorage.getItem(key));
   }
 }

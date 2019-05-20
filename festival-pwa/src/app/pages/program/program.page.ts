@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Program } from 'src/app/shared/models/program';
 import { DataService } from 'src/app/shared/services/data.service';
-import { HashedData } from 'src/app/shared/models/data';
 import { FetcherService } from 'src/app/shared/services/fetcher.service';
 import { SettingsService } from 'src/app/shared/services/settings.service';
 import { NewsItem } from 'src/app/shared/models/newsitem';
